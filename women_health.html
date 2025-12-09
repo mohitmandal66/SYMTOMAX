@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Women's Health Tracker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+:root {
+    --bg-color: #fff0f5;
+    --card-color: #fff;
+    --primary-color: #d63384;
+    --accent-color: #ff99cc;
+    --text-color: #1a1a1a;
+    --emergency-color: #ff3366;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    transition: all 0.5s;
+}
+
+h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.card {
+    background: var(--card-color);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: all 0.5s;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px 0;
+    border-radius: 10px;
+    border: 1px solid #e08080;
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #a51d66;
+}
+
+#womenHealthResult {
+    margin-top: 15px;
+    padding: 15px;
+    background: #ffe6f0;
+    border-left: 5px solid var(--primary-color);
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+#emergencyButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--emergency-color);
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: 0.3s;
+}
+#emergencyButton:hover {
+    background: #cc0055;
+}
+
+.symptom-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+.symptom-list label {
+    background: var(--accent-color);
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.symptom-list input[type="checkbox"] {
+    display: none;
+}
+.symptom-list input[type="checkbox"]:checked + span {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+/* Water Progress Bar */
+.water-container {
+    background:#ffe6f0; 
+    border-radius:10px; 
+    overflow:hidden; 
+    margin-top:5px;
+}
+.water-progress {
+    height:15px; 
+    width:0%; 
+    background:#d63384;
+    transition: width 0.3s;
+}
+
+/* Theme Toggle Button */
+#themeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000;
+}
+#themeToggle:hover { background: #a51d66; }
+
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button id="themeToggle" onclick="manualTheme()">Toggle Theme</button>
+
+<div class="card">
+    <h2>♀ Women's Health Tracker</h2>
+
+    <label for="periodDate">Start of Last Period:</label>
+    <input type="date" id="periodDate">
+
+    <label for="cycleLength">Cycle Length (days):</label>
+    <input type="number" id="cycleLength" min="20" max="40" value="28">
+
+    <label>PCOS Indicators:</label>
+    <textarea id="pcosIndicators" placeholder="Enter symptoms like irregular periods, acne, weight gain, hair growth..."></textarea>
+
+    <label>PMS Tracking:</label>
+    <textarea id="pmsIndicators" placeholder="Enter symptoms like mood swings, cramps..."></textarea>
+
+    <label>Pregnancy Safe Symptoms:</label>
+    <textarea id="pregnancySymptoms" placeholder="Enter symptoms like mild nausea, fatigue..."></textarea>
+
+    <label>Nutritional Risk Score (0-10):</label>
+    <input type="number" id="nutritionScore" min="0" max="10" value="3">
+
+    <label>Mood Today:</label>
+    <select id="mood">
+        <option value="happy">😊 Happy</option>
+        <option value="sad">😔 Sad</option>
+        <option value="angry">😡 Angry</option>
+        <option value="neutral">😐 Neutral</option>
+    </select>
+
+    <label>Water Intake (liters):</label>
+    <div style="display:flex; gap:10px; align-items:center;">
+        <button onclick="adjustWater(-0.25)">-</button>
+        <input type="number" id="waterIntake" min="0" max="10" step="0.25" value="2" readonly style="width:60px; text-align:center;">
+        <button onclick="adjustWater(0.25)">+</button>
+    </div>
+    <div class="water-container">
+        <div id="waterProgress" class="water-progress"></div>
+    </div>
+
+    <label>Sleep (hours):</label>
+    <input type="number" id="sleepHours" min="0" max="24" value="7">
+
+    <label>Select Symptoms:</label>
+    <div class="symptom-list" id="symptomList">
+        <label><input type="checkbox" value="fever"><span>Fever</span></label>
+        <label><input type="checkbox" value="cough"><span>Cough</span></label>
+        <label><input type="checkbox" value="fatigue"><span>Fatigue</span></label>
+        <label><input type="checkbox" value="nausea"><span>Nausea</span></label>
+        <label><input type="checkbox" value="headache"><span>Headache</span></label>
+        <label><input type="checkbox" value="dizziness"><span>Dizziness</span></label>
+        <label><input type="checkbox" value="cramps"><span>Cramps</span></label>
+        <label><input type="checkbox" value="bloating"><span>Bloating</span></label>
+    </div>
+
+    <button onclick="saveWomenHealth()">Save Data</button>
+    <div id="womenHealthResult"></div>
+
+    <hr>
+    <label>Emergency Contact Number:</label>
+    <input type="tel" id="emergencyNumber" placeholder="Enter phone number only">
+    <button onclick="saveEmergencyNumber()">Save Emergency Number</button>
+    <div id="emergencyResult"></div>
+</div>
+
+<!-- Floating Emergency Button -->
+<button id="emergencyButton" onclick="callEmergency()"><i class="fas fa-phone"></i></button>
+
+<script>
+// Theme Handling: Soft Pink & Purple (Day/Night) + Manual Toggle
+function setTheme(theme="auto"){
+    const hour = new Date().getHours();
+    let bg, card, primary, accent, text, emergency;
+
+    if(theme==="auto"){
+        if(hour >=6 && hour <18) theme="pink"; // day
+        else theme="darkpink"; // night
+    }
+
+    if(theme==="pink"){ // Day
+        bg="#fff0f5"; card="#fff"; primary="#d63384"; accent="#ff99cc"; text="#1a1a1a"; emergency="#ff3366";
+    } else if(theme==="darkpink"){ // Night
+        bg="#2b003d"; card="#3b0d4c"; primary="#ff66cc"; accent="#ff3399"; text="#fff"; emergency="#ff3366";
+    }
+
+    document.documentElement.style.setProperty('--bg-color', bg);
+    document.documentElement.style.setProperty('--card-color', card);
+    document.documentElement.style.setProperty('--primary-color', primary);
+    document.documentElement.style.setProperty('--accent-color', accent);
+    document.documentElement.style.setProperty('--text-color', text);
+    document.documentElement.style.setProperty('--emergency-color', emergency);
+
+    localStorage.setItem('themeStyle', theme);
+}
+
+// Manual toggle
+function manualTheme(){
+    const current = localStorage.getItem('themeStyle') || "auto";
+    if(current==="pink" || current==="auto") setTheme("darkpink");
+    else setTheme("pink");
+}
+
+// Load theme and data
+window.onload = () => {
+    const savedTheme = localStorage.getItem('themeStyle') || "auto";
+    setTheme(savedTheme);
+
+    // Load health data
+    const stored = JSON.parse(localStorage.getItem('womenHealthData'));
+    if(stored){
+        document.getElementById('periodDate').value = stored.periodDate || '';
+        document.getElementById('cycleLength').value = stored.cycleLength || '';
+        document.getElementById('pcosIndicators').value = stored.pcos || '';
+        document.getElementById('pmsIndicators').value = stored.pms || '';
+        document.getElementById('pregnancySymptoms').value = stored.pregnancy || '';
+        document.getElementById('nutritionScore').value = stored.nutrition || '';
+        document.getElementById('mood').value = stored.mood || '';
+        document.getElementById('sleepHours').value = stored.sleep || '';
+        document.getElementById('womenHealthResult').innerHTML = "🕒 Data loaded from previous session.";
+        loadWater();
+    }
+
+    // Load emergency number
+    const emergency = localStorage.getItem('emergencyNumber');
+    if(emergency) document.getElementById('emergencyNumber').value = emergency;
+};
+
+// Save health data
+function saveWomenHealth(){
+    const data = {
+        periodDate: document.getElementById('periodDate').value,
+        cycleLength: document.getElementById('cycleLength').value,
+        pcos: document.getElementById('pcosIndicators').value,
+        pms: document.getElementById('pmsIndicators').value,
+        pregnancy: document.getElementById('pregnancySymptoms').value,
+        nutrition: document.getElementById('nutritionScore').value,
+        mood: document.getElementById('mood').value,
+        water: document.getElementById('waterIntake').value,
+        sleep: document.getElementById('sleepHours').value,
+        symptoms: [...document.querySelectorAll('#symptomList input:checked')].map(i=>i.value),
+        savedAt: new Date().getTime()
+    };
+    localStorage.setItem('womenHealthData', JSON.stringify(data));
+    document.getElementById('womenHealthResult').innerHTML = "✅ Data saved successfully!";
+}
+
+// Save emergency number
+function saveEmergencyNumber(){
+    const number = document.getElementById('emergencyNumber').value;
+    if(number){
+        localStorage.setItem('emergencyNumber', number);
+        document.getElementById('emergencyResult').innerHTML = "✅ Emergency number saved!";
+    } else {
+        document.getElementById('emergencyResult').innerHTML = "⚠ Please enter a valid number";
+    }
+}
+
+// Emergency call
+function callEmergency(){
+    const number = localStorage.getItem('emergencyNumber');
+    if(number){
+        window.location.href = `tel:${number}`;
+    } else {
+        alert("⚠ No emergency number saved. Please save your number first.");
+    }
+}
+
+// Symptom Rule Engine Example
+function checkSymptoms(){
+    const s = [...document.querySelectorAll('#symptomList input:checked')].map(i=>i.value).join(' ').toLowerCase();
+    const rules = [];
+    if(s.includes('fever') || s.includes('temperature')) rules.push('Fever: could be infection — rest, fluids. See doctor if >38°C or lasting 48+ hrs.');
+    if(s.includes('cough')) rules.push('Cough: monitor breathing, hydrate. Seek doctor if persistent.');
+    if(s.includes('fatigue')) rules.push('Fatigue: possible anemia or infection — rest and nutrition.');
+    if(s.includes('nausea')) rules.push('Nausea: monitor for dehydration, light meals.');
+    if(s.includes('headache')) rules.push('Headache: check hydration, rest, see doctor if severe.');
+    if(s.includes('dizziness')) rules.push('Dizziness: sit down, hydrate, check BP.');
+    if(s.includes('cramps')) rules.push('Cramps: usually PMS-related, heat pack can help.');
+    if(s.includes('bloating')) rules.push('Bloating: diet check, hydrate, gentle exercise.');
+    return rules.join('<br>');
+}
+
+// Optionally show symptom rules
+document.getElementById('symptomList').addEventListener('change', ()=>{
+    const advice = checkSymptoms();
+    document.getElementById('womenHealthResult').innerHTML = advice;
+});
+
+// Water Intake System
+function loadWater(){
+    const today = new Date().toISOString().split('T')[0];
+    let waterData = JSON.parse(localStorage.getItem('waterData') || '{}');
+    if(!waterData[today]) waterData[today] = 2;
+    document.getElementById('waterIntake').value = waterData[today];
+    updateWaterProgress(waterData[today]);
+}
+function adjustWater(amount){
+    const today = new Date().toISOString().split('T')[0];
+    let waterData = JSON.parse(localStorage.getItem('waterData') || '{}');
+    let current = waterData[today] || 2;
+    current += amount;
+    if(current < 0) current = 0;
+    if(current > 10) current = 10;
+    waterData[today] = Math.round(current*100)/100;
+    localStorage.setItem('waterData', JSON.stringify(waterData));
+    document.getElementById('waterIntake').value = waterData[today];
+    updateWaterProgress(waterData[today]);
+}
+function updateWaterProgress(value){
+    const percent = Math.min((value/2)*100,100); // 2L target
+    document.getElementById('waterProgress').style.width = percent + '%';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+/* ===========================
+   Sattvik Kitchen – NUTRITION UI
+   Glassmorphism + Apple Style
+=========================== */
+
+:root {
+    --bg1: #dfe9f3;
+    --bg2: #ffffff;
+    --accent: #4CAF50;
+    --text-dark: #1b1b1b;
+    --text-light: #ffffff;
+
+    --glass-bg: rgba(255,255,255,0.25);
+    --glass-border: rgba(255,255,255,0.35);
+    --glass-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* ------------------------ */
+/* Background Gradient Flow */
+/* ------------------------ */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    background: linear-gradient(130deg, #f3faff, #e1f0ff, #fff1ff);
+    background-size: 300% 300%;
+    animation: bgFlow 12s ease infinite;
+    color: var(--text-dark);
+}
+
+@keyframes bgFlow {
+    0% { background-position: left top; }
+    50% { background-position: right bottom; }
+    100% { background-position: left top; }
+}
+
+/* 🟩 Apple-style headings */
+h1, h2, h3 {
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: 0.5px;
+}
+
+/* ------------------------ */
+/*      Glassmorphic card   */
+/* ------------------------ */
+
+.card, .nutri-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 18px;
+    padding: 20px;
+    margin: 15px;
+    transition: 0.25s ease;
+}
+
+.card:hover, .nutri-card:hover {
+    transform: translateY(-4px);
+}
+
+/* ------------------------ */
+/* Nutrition Grid           */
+/* ------------------------ */
+
+.nutrition-container {
+    width: 90%;
+    max-width: 950px;
+    margin: 20px auto;
+}
+
+.nutri-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* ------------------------ */
+/* Inside card items        */
+/* ------------------------ */
+
+.nutri-item-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.nutri-value {
+    font-size: 16px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 12px;
+    display: inline-block;
+    backdrop-filter: blur(8px);
+    margin-top: 6px;
+}
+
+/* ------------------------ */
+/* Buttons – Apple Style    */
+/* ------------------------ */
+
+button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(10px);
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+button:hover {
+    background: rgba(41, 7, 7, 0.5);
+    transform: scale(1.03);
+}
+
+/* ------------------------ */
+/* Search Box               */
+/* ------------------------ */
+
+.search-box {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    font-size: 16px;
+}
+
+/* ------------------------ */
+/* Responsive               */
+/* ------------------------ */
+
+@media(max-width: 600px){
+    .nutrition-container {
+        width: 94%;
+    }
+
+    .card, .nutri-card {
+        padding: 16px;
+    }
+
+    .nutri-item-title {
+        font-size: 18px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+#floatingLeftBtn {
+    position: fixed;
+    bottom: 25px;      /* distance from bottom */
+    left: 25px;        /* left side */
+    width: 45px;       /* smaller size */
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    font-size: 22px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: 0.3s;
+    z-index: 1000;
+}
+
+#floatingLeftBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}

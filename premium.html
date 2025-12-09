@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptomax Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+
+
+
+
+
+
+<!-- Back to Home Button -->
+<a href="index.html" 
+   style="
+     position: fixed;
+     top: 20px;
+     left: 20px;
+     background: #ff4444;
+     color: #ffffff;
+     padding: 12px 18px;
+     border-radius: 50px;
+     text-decoration: none;
+     font-weight: bold;
+     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+     transition: transform 0.2s;
+     z-index: 1500;
+   "
+   onmouseover="this.style.transform='scale(1.08)';"
+   onmouseout="this.style.transform='scale(1)';"
+>
+  ⬅ Back
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header>
+ 
+    <nav>
+        <button onclick="showSection('healthScore')" class="primary-btn">Health Score</button>
+        <button onclick="showSection('emergencyAssistant')" class="secondary-btn">Emergency Assistant</button>
+        <button onclick="showSection('womensHealth')" class="secondary-btn">Women's Health</button>
+       <!-- Back Button to Premium Page -->
+
+
+    </nav><!-- Floating Nav Button -->
+<a href="child.html" 
+   style="
+     position: fixed;
+     bottom: 20px;
+     right: 20px;
+     background: #b7ff00;
+     color: #ff0000;
+     padding: 15px 20px;
+     border-radius: 50px;
+     text-decoration: none;
+     font-weight: bold;
+     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+     transition: transform 0.2s;
+     z-index: 1000;
+   "
+   onmouseover="this.style.transform='scale(1.1)';"
+   onmouseout="this.style.transform='scale(1)';"
+>
+  Go to Child Page
+</a>
+   <h1>🌟 Symptomax Premium👆             </h1>
+</header>
+
+<main class="container">
+
+    <!-- Health Score Calculator -->
+    <section id="healthScore" class="premium-section">
+        <div class="card">
+            <h2>🩺 Health Score Calculator</h2>
+            <label>Age:</label>
+            <input type="number" id="scoreAge" min="1" max="120" value="30">
+            <label>Weight (kg):</label>
+            <input type="number" id="scoreWeight" step="0.1" value="70">
+            <label>Height (cm):</label>
+            <input type="number" id="scoreHeight" step="1" value="170">
+            <label>Symptoms (comma separated, e.g., fever, cough, nausea):</label>
+            <textarea id="scoreSymptoms" rows="3"></textarea>
+            <label>Lifestyle Risk (0-10, 0=healthy, 10=high risk):</label>
+            <input type="number" id="scoreLifestyle" min="0" max="10" value="2">
+            <button class="primary-btn" onclick="calculateHealthScore()">Calculate Score</button>
+            <div id="healthScoreResult"></div>
+        </div>
+    </section>
+
+    <!-- Smart Emergency Assistant -->
+    <section id="emergencyAssistant" class="premium-section" style="display:none;">
+        <div class="card">
+              <h2>🚨 Smart Emergency Assistant</h2>
+
+        <!-- Custom Emergency Number 1 -->
+        <label>Emergency Number 1:</label>
+        <input type="tel" id="customNumber1" placeholder="Enter number (e.g., 911)">
+        <button class="primary-btn" onclick="callCustomNumber(1)">Call Number 1</button>
+
+        <!-- Custom Emergency Number 2 -->
+        <label>Emergency Number 2:</label>
+        <input type="tel" id="customNumber2" placeholder="Enter number (e.g., 112)">
+        <button class="primary-btn" onclick="callCustomNumber(2)">Call Number 2</button>
+
+            <button onclick="openNearbyHospitals()" class="secondary-btn">🏥 Nearby Hospitals</button>
+            <button onclick="shareLocation()" class="secondary-btn">📍 Share My Location</button>
+            <button onclick="showBloodBanks()" class="secondary-btn">🩸 Blood Bank Contacts</button>
+            <div id="emergencyResult" style="margin-top:10px;"></div>
+        </div>
+    </section>
+
+    <!-- Women's Health Mode -->
+    <section id="womensHealth" class="premium-section" style="display:none;">
+        <iframe src="women_health.html" style="width:100%; height:600px; border:none;"></iframe>
+    </section>
+
+<section id="emergencyAssistant" class="premium-section" style="display:none;">
+    <div class="card">
+        <h2>🚨 Smart Emergency Assistant</h2>
+
+        <!-- Emergency Number Inputs -->
+        <div>
+            <label>Emergency Number 1:</label>
+            <input type="tel" id="emergencyNumber1" placeholder="Enter number 1">
+            <button onclick="saveNumber(1)">💾 Save</button>
+            <button onclick="editNumber(1)">✏️ Edit</button>
+            <a id="callNumber1" href="#" style="display:none;" class="primary-btn">📞 Call</a>
+        </div>
+
+        <div style="margin-top:10px;">
+            <label>Emergency Number 2:</label>
+            <input type="tel" id="emergencyNumber2" placeholder="Enter number 2">
+            <button onclick="saveNumber(2)">💾 Save</button>
+            <button onclick="editNumber(2)">✏️ Edit</button>
+            <a id="callNumber2" href="#" style="display:none;" class="primary-btn">📞 Call</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 Symptomax Premium. All rights reserved.</p>
+</footer>
+
+<script src="premium_symptomax.js"></script><script src="https://widget.cxgenie.ai/widget.js"
+        data-aid="24674b96-1981-42b5-be04-62681701738c"
+        data-lang="en">
+</script>
+
+</body>
+</html>

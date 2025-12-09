@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+
+
+
+
+
+
+
+      
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Symptomax</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body class="dark-theme">
+        <header>
+            <div id="welcome-screen">
+                <div class="welcome-box">
+                    <h2>
+                        </p><img src="abcd.gif" alt="Welcome Animation" class="welcome-gif">
+                </div>
+            </div>
+            <center>
+                
+
+<div class="logo"><img src="image.png" alt="Symptomax Logo" class="logo-img">
+
+
+
+<h2 class="tagline" style="
+    margin-top:10px;
+    font-size:1.4rem;
+    font-weight:600;
+    color:#ffffff;
+    text-shadow:
+        0 0 5px #0022ff,
+        0 0 10px #fff200,
+        0 0 20px #ff0000,
+        0 0 40px #00ff33,
+        0 0 80px #7566ff;
+">
+  SYMTOMAX - Your Health Assistant 
+</h2>
+<div class="logo"><img src="kv.png" alt="kv Logo" class="logo-img">
+<h2 class="tagline" style="
+    margin-top:10px;
+    font-size:1.4rem;
+    font-weight:600;
+    color:#ffffff;
+    text-shadow:
+        0 0 5px #0022ff,
+        0 0 10px #ffd000,
+        0 0 20px #ff0000,
+        0 0 40px #00ff33,
+        0 0 80px #7566ff;
+">
+  PM SHRI Kendriya Vidyalaya New Bongaigaon's PROJECT
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      
+
+        </header>
+        <main class="container">
+           
+                <section id="home-page" class="page-section active">
+                    <div class="split-content">
+                       
+                            <div class="input-panel">
+                                <h2>🩺 Digital Consultation Steps</h2>
+                                Step 1
+                                    <div class="card step-card">
+                                        <h3>1. Personal Information</h3><label>Age (Years):</label><input type="number" id="ageInput" min="1" max="100" value="35" required><label>Sex:</label><select id="sexSelect">
+                                            <option value="all">Unspecified / All</option>
+                                            <option value="male">Male</option>
+                                            <option value="female" selected>Female</option>
+                                        </select>
+                                    </div>
+                                    BMI
+                                        <div class="card step-card bmi-card">
+                                            <h3>1b. BMI Calculation</h3><label>Weight (kg):</label><input type="number" id="weightInput" value="70"><label>Height (cm):</label><input type="number" id="heightInput" value="165"><button onclick="calculateBMI()" class="calculate-btn"><i class="fas fa-calculator"></i>Calculate BMI & Risk </button>
+                                            <div id="bmiResult" class="result-area">
+                                                <p class="bmi-link-message"><i class="fas fa-check-circle"></i>BMI risk factor added ! </p>
+                                            </div>
+                                        </div>
+                                       Step 2 
+                                            <!-- SCROLLABLE DISEASE SELECTOR CARD -->
+<div class="glass-card disease-scroll-card">
+    <h3>Select Disease</h3>
+
+  <div class="disease-scroll-box">
+    <button onclick="autoFillDisease('chest pain, arm pain, tightness in chest, jaw pain, nausea, sudden severe chest pain, heavy chest, sweating, pressure, short breath')">
+        chest pain, arm pain, tightness in chest, jaw pain, nausea, sudden severe chest pain, heavy chest, sweating, pressure, short breath
+    </button>
+    <button onclick="autoFillDisease('high blood pressure, headache back of head, dizziness, pounding head, blurred vision')">
+        high blood pressure, headache back of head, dizziness, pounding head, blurred vision
+    </button>
+    <button onclick="autoFillDisease('polydipsia, polyuria, excessive thirst, frequent urination, unexplained weight loss, fatigue, blurry vision, slow healing wounds')">
+        polydipsia, polyuria, excessive thirst, frequent urination, unexplained weight loss, fatigue, blurry vision, slow healing wounds
+    </button>
+    <button onclick="autoFillDisease('joint pain, stiffness, knees ache, hip pain, pain improves with rest, grinding sound joints')">
+        joint pain, stiffness, knees ache, hip pain, pain improves with rest, grinding sound joints
+    </button>
+    <button onclick="autoFillDisease('pyrosis, regurgitation, heartburn, throat burning, acid taste, burning chest, vomiting')">
+        pyrosis, regurgitation, heartburn, throat burning, acid taste, burning chest, vomiting
+    </button>
+    <button onclick="autoFillDisease('upper right abdominal pain, fever, pain after fatty meal, jaundice, yellow skin, severe tummy pain, vomiting')">
+        upper right abdominal pain, fever, pain after fatty meal, jaundice, yellow skin, severe tummy pain, vomiting
+    </button>
+    <button onclick="autoFillDisease('irregular periods, excess body hair, acne, weight gain, difficulty getting pregnant')">
+        irregular periods, excess body hair, acne, weight gain, difficulty getting pregnant
+    </button>
+    <button onclick="autoFillDisease('swelling feet, ankle swelling, fatigue, nausea, blood in urine, decreased urine output')">
+        swelling feet, ankle swelling, fatigue, nausea, blood in urine, decreased urine output
+    </button>
+    <button onclick="autoFillDisease('severe headache, nuchal rigidity, stiff neck, fever, vomiting, photophobia, rash')">
+        severe headache, nuchal rigidity, stiff neck, fever, vomiting, photophobia, rash
+    </button>
+    <button onclick="autoFillDisease('facial pain, nasal congestion, runny nose, headache, pressure behind eyes, loss of smell')">
+        facial pain, nasal congestion, runny nose, headache, pressure behind eyes, loss of smell
+    </button>
+    <button onclick="autoFillDisease('wheezing, shortness of breath, tight chest, coughing, difficulty breathing, allergy, dyspnea')">
+        wheezing, shortness of breath, tight chest, coughing, difficulty breathing, allergy, dyspnea
+    </button>
+    <button onclick="autoFillDisease('itchy rash, dry skin, red patches, skin inflammation, flaky skin')">
+        itchy rash, dry skin, red patches, skin inflammation, flaky skin
+    </button>
+    <button onclick="autoFillDisease('scar, keloid, burn scar, facial scar, revision required')">
+        scar, keloid, burn scar, facial scar, revision required
+    </button>
+    <button onclick="autoFillDisease('pelvic pain, dysuria, painful urination, burning when peeing, frequent urge, cloudy urine, lower back pain')">
+        pelvic pain, dysuria, painful urination, burning when peeing, frequent urge, cloudy urine, lower back pain
+    </button>
+    <button onclick="autoFillDisease('fever, cough, high temperature, hacking, temp, chills, body ache, muscle pain, tired, malaise')">
+        fever, cough, high temperature, hacking, temp, chills, body ache, muscle pain, tired, malaise
+    </button>
+    <button onclick="autoFillDisease('severe fatigue, pale skin, dizziness, weakness, brittle hair')">
+        severe fatigue, pale skin, dizziness, weakness, brittle hair
+    </button>
+    <button onclick="autoFillDisease('sneezing, runny nose, dripping nose, sore throat, throat pain, nasal congestion, clear mucus, vomiting')">
+        sneezing, runny nose, dripping nose, sore throat, throat pain, nasal congestion, clear mucus, vomiting
+    </button>
+    <button onclick="autoFillDisease('wheezing, shortness of breath, chest tightness, coughing at night, breathing difficulties (child)')">
+        wheezing, shortness of breath, chest tightness, coughing at night, breathing difficulties (child)
+    </button>
+    <button onclick="autoFillDisease('sudden severe back pain, pulsating abdomen, lightheadedness, fast heart rate, tearing pain in back or side')">
+        sudden severe back pain, pulsating abdomen, lightheadedness, fast heart rate, tearing pain in back or side
+    </button>
+    <button onclick="autoFillDisease('pain heel, stiffness ankle, swelling back of leg, pain worsens with activity, morning stiffness')">
+        pain heel, stiffness ankle, swelling back of leg, pain worsens with activity, morning stiffness
+    </button>
+    <button onclick="autoFillDisease('pimples, blackheads, whiteheads, oily skin, facial rash, spots')">
+        pimples, blackheads, whiteheads, oily skin, facial rash, spots
+    </button>
+    <button onclick="autoFillDisease('persistent fever, bone joint pain (child), pale, tired (child), easy bleeding (child)')">
+        persistent fever, bone joint pain (child), pale, tired (child), easy bleeding (child)
+    </button>
+    <button onclick="autoFillDisease('fatigue, shortness of breath, easy bruising, bleeding gums, recurrent infections, fever')">
+        fatigue, shortness of breath, easy bruising, bleeding gums, recurrent infections, fever
+    </button>
+    <button onclick="autoFillDisease('fever, nosebleeds (child), pale, tired (child), infections (child)')">
+        fever, nosebleeds (child), pale, tired (child), infections (child)
+    </button>
+    <button onclick="autoFillDisease('sudden severe upper abdominal pain, pain radiating to back, nausea, vomiting, tender abdomen, rapid pulse')">
+        sudden severe upper abdominal pain, pain radiating to back, nausea, vomiting, tender abdomen, rapid pulse
+    </button>
+    <button onclick="autoFillDisease('fever, cough, sore throat, runny nose, difficulty breathing, shortness of breath')">
+        fever, cough, sore throat, runny nose, difficulty breathing, shortness of breath
+    </button>
+    <button onclick="autoFillDisease('extreme fatigue, weight loss, darkening skin (hyperpigmentation), low blood pressure, muscle weakness, salt craving')">
+        extreme fatigue, weight loss, darkening skin (hyperpigmentation), low blood pressure, muscle weakness, salt craving
+    </button>
+    <button onclick="autoFillDisease('heavy menstrual bleeding, severe period pain, prolonged periods, pelvic pain (female)')">
+        heavy menstrual bleeding, severe period pain, prolonged periods, pelvic pain (female)
+    </button>
+    <button onclick="autoFillDisease('jaundice, yellow eyes, abdominal swelling, easy bruising, nausea, fatigue, chronic alcohol use')">
+        jaundice, yellow eyes, abdominal swelling, easy bruising, nausea, fatigue, chronic alcohol use
+    </button>
+    <button onclick="autoFillDisease('sneezing, itchy nose, watery eyes, blocked nose, seasonal allergy')">
+        sneezing, itchy nose, watery eyes, blocked nose, seasonal allergy
+    </button>
+    <button onclick="autoFillDisease('hives, rash, itching, swelling, sneezing, wheezing after exposure')">
+        hives, rash, itching, swelling, sneezing, wheezing after exposure
+    </button>
+    <button onclick="autoFillDisease('memory loss, difficulty problem-solving, poor judgment, disorientation, personality changes (elderly)')">
+        memory loss, difficulty problem-solving, poor judgment, disorientation, personality changes (elderly)
+    </button>
+    <button onclick="autoFillDisease('bleeding from anus, pain around anus, anal lump, persistent itching, change in bowel habits')">
+        bleeding from anus, pain around anus, anal lump, persistent itching, change in bowel habits
+    </button>
+    <button onclick="autoFillDisease('sudden swelling face lips tongue, difficulty breathing, rash hives, wheezing, rapid weak pulse, severe allergic reaction')">
+        sudden swelling face lips tongue, difficulty breathing, rash hives, wheezing, rapid weak pulse, severe allergic reaction
+    </button>
+    <button onclick="autoFillDisease('chest pain, chest tightness, pressure in chest, pain radiating to arm neck jaw, pain relieved by rest')">
+        chest pain, chest tightness, pressure in chest, pain radiating to arm neck jaw, pain relieved by rest
+    </button>
+    <button onclick="autoFillDisease('sudden swelling beneath skin, swollen lips eyelids throat, face swelling, difficulty breathing')">
+        sudden swelling beneath skin, swollen lips eyelids throat, face swelling, difficulty breathing
+    </button>
+    <button onclick="autoFillDisease('ankle pain, swelling ankle, bruising ankle, difficulty walking, instability after injury')">
+        ankle pain, swelling ankle, bruising ankle, difficulty walking, instability after injury
+    </button>
+    <button onclick="autoFillDisease('severe ankle pain after injury, inability to walk, sudden sharp pain, swelling')">
+        severe ankle pain after injury, inability to walk, sudden sharp pain, swelling
+    </button>
+    <button onclick="autoFillDisease('chronic back pain, stiffness in lower back, pain worse in morning, pain improves with exercise, buttock pain')">
+        chronic back pain, stiffness in lower back, pain worse in morning, pain improves with exercise, buttock pain
+    </button>
+    <button onclick="autoFillDisease('extreme restriction food, severe weight loss, distorted body image, fear of gaining weight, excessive exercise')">
+        extreme restriction food, severe weight loss, distorted body image, fear of gaining weight, excessive exercise
+    </button>
+    <button onclick="autoFillDisease('excessive worry (child), panic attacks (child), reluctance to go to school, restlessness (child), physical symptoms of worry')">
+        excessive worry (child), panic attacks (child), reluctance to go to school, restlessness (child), physical symptoms of worry
+    </button>
+    <button onclick="autoFillDisease('fatigue, pale skin, frequent infections, easy bruising, shortness of breath')">
+        fatigue, pale skin, frequent infections, easy bruising, shortness of breath
+    </button>
+    <button onclick="autoFillDisease('pain starting near belly button, pain moving to lower right abdomen, severe tummy pain, fever, nausea, vomiting, loss of appetite')">
+        pain starting near belly button, pain moving to lower right abdomen, severe tummy pain, fever, nausea, vomiting, loss of appetite
+    </button>
+    <button onclick="autoFillDisease('sudden severe limb pain, cold white limb, pulseless limb, weakness, paralysis, numbness')">
+        sudden severe limb pain, cold white limb, pulseless limb, weakness, paralysis, numbness
+    </button>
+    <button onclick="autoFillDisease('joint swelling, chronic joint pain, stiffness, limited range of motion')">
+        joint swelling, chronic joint pain, stiffness, limited range of motion
+    </button>
+    <button onclick="autoFillDisease('shortness of breath, persistent dry cough, chest pain, clubbed fingers, history of asbestos exposure')">
+        shortness of breath, persistent dry cough, chest pain, clubbed fingers, history of asbestos exposure
+    </button>
+    <button onclick="autoFillDisease('loss of coordination, unsteady walking, difficulty balancing, slurred speech, clumsy movements')">
+        loss of coordination, unsteady walking, difficulty balancing, slurred speech, clumsy movements
+    </button>
+    <button onclick="autoFillDisease('itchy rash, dry flaky skin, red patches, inflamed skin behind knees elbows, childhood rash')">
+        itchy rash, dry flaky skin, red patches, inflamed skin behind knees elbows, childhood rash
+    </button>
+    <button onclick="autoFillDisease('irregular heartbeat, fast heart rate, heart palpitations, dizzy, short of breath, fatigue')">
+        irregular heartbeat, fast heart rate, heart palpitations, dizzy, short of breath, fatigue
+    </button>
+    <button onclick="autoFillDisease('inattention, hyperactivity, impulsivity, difficulty focusing, restlessness, organization problems (child or adult)')">
+        inattention, hyperactivity, impulsivity, difficulty focusing, restlessness, organization problems (child or adult)
+    </button>
+    <button onclick="autoFillDisease('social difficulty, repetitive behaviors, limited interests, communication challenges, sensory sensitivity (child)')">
+        social difficulty, repetitive behaviors, limited interests, communication challenges, sensory sensitivity (child)
+    </button>
+    <button onclick="autoFillDisease('lower back pain, chronic ache in back, pain shooting down leg, stiffness in spine, difficulty standing straight')">
+        lower back pain, chronic ache in back, pain shooting down leg, stiffness in spine, difficulty standing straight
+    </button>
+    <button onclick="autoFillDisease('thin gray vaginal discharge, fishy odor vagina, itching burning vulva')">
+        thin gray vaginal discharge, fishy odor vagina, itching burning vulva
+    </button>
+    <button onclick="autoFillDisease('muscle weakness in legs and arms (slowly progressing), muscle cramps, difficulty standing up, walking on tiptoes')">
+        muscle weakness in legs and arms (slowly progressing), muscle cramps, difficulty standing up, walking on tiptoes
+    </button>
+    <button onclick="autoFillDisease('frequent urination (male), difficulty starting urination, weak urine flow, night urination (male), incomplete emptying')">
+        frequent urination (male), difficulty starting urination, weak urine flow, night urination (male), incomplete emptying
+    </button>
+    <button onclick="autoFillDisease('jaundice, yellow skin, dark urine, pale stools, unexplained weight loss, upper abdominal pain')">
+        jaundice, yellow skin, dark urine, pale stools, unexplained weight loss, upper abdominal pain
+    </button>
+    <button onclick="autoFillDisease('eating large amounts of food rapidly, feeling lack of control over eating, eating alone due to shame')">
+        eating large amounts of food rapidly, feeling lack of control over eating, eating alone due to shame
+    </button>
+    <button onclick="autoFillDisease('periods of extreme high mood (mania) and low mood (depression), racing thoughts, impulsive behavior, persistent sadness')">
+        periods of extreme high mood (mania) and low mood (depression), racing thoughts, impulsive behavior, persistent sadness
+    </button>
+    <button onclick="autoFillDisease('blood in urine (haematuria), painful urination, frequent urination, pelvic pain')">
+        blood in urine (haematuria), painful urination, frequent urination, pelvic pain
+    </button>
+    <button onclick="autoFillDisease('fever, chills, rapid heart rate, confusion, very low blood pressure, severe infection')">
+        fever, chills, rapid heart rate, confusion, very low blood pressure, severe infection
+    </button>
+    <button onclick="autoFillDisease('persistent bone pain, localized swelling, pain worse at night, unexplained lump, bone fracture with minor injury')">
+        persistent bone pain, localized swelling, pain worse at night, unexplained lump, bone fracture with minor injury
+    </button>
+    <button onclick="autoFillDisease('change in bowel habits, blood in stool, persistent abdominal pain, unexplained weight loss, fatigue, anemia')">
+        change in bowel habits, blood in stool, persistent abdominal pain, unexplained weight loss, fatigue, anemia
+    </button>
+    <button onclick="autoFillDisease('loss of bowel control, involuntary stool leakage, inability to hold back gas')">
+        loss of bowel control, involuntary stool leakage, inability to hold back gas
+    </button>
+    <button onclick="autoFillDisease('rectal bleeding, blood in stool, change in bowel habits, iron deficiency anemia')">
+        rectal bleeding, blood in stool, change in bowel habits, iron deficiency anemia
+    </button>
+    <button onclick="autoFillDisease('legs bowed outwards (child), knees touching while ankles apart (child), uneven gait')">
+        legs bowed outwards (child), knees touching while ankles apart (child), uneven gait
+    </button>
+    <button onclick="autoFillDisease('no response to pain, no coughing or gag reflex, no breathing effort')">
+        no response to pain, no coughing or gag reflex, no breathing effort
+    </button>
+    <button onclick="autoFillDisease('new onset severe headache, headache worse in morning, unexplained nausea vomiting, seizure, vision changes, personality change')">
+        new onset severe headache, headache worse in morning, unexplained nausea vomiting, seizure, vision changes, personality change
+    </button>
+    <button onclick="autoFillDisease('persistent headache (child), balance problems (child), repeated vomiting, visual difficulty (child)')">
+        persistent headache (child), balance problems (child), repeated vomiting, visual difficulty (child)
+    </button>
+    <button onclick="autoFillDisease('new severe headache, seizure, cognitive changes, vomiting, vision problems (young adult)')">
+        new severe headache, seizure, cognitive changes, vomiting, vision problems (young adult)
+    </button>
+    <button onclick="autoFillDisease('breast lump, change in breast size shape, nipple discharge, inverted nipple, skin dimpling, pain in breast')">
+        breast lump, change in breast size shape, nipple discharge, inverted nipple, skin dimpling, pain in breast
+    </button>
+    <button onclick="autoFillDisease('lump under nipple (male), nipple discharge (male), retracted nipple (male), pain in breast (male)')">
+        lump under nipple (male), nipple discharge (male), retracted nipple (male), pain in breast (male)
+    </button>
+    <button onclick="autoFillDisease('fast breathing (child), noisy breathing (child), retractions, wheezing (child), difficulty breathing (child)')">
+        fast breathing (child), noisy breathing (child), retractions, wheezing (child), difficulty breathing (child)
+    </button>
+    <button onclick="autoFillDisease('shortness of breath at rest, difficulty catching breath, gasping for air, dyspnea on exertion')">
+        shortness of breath at rest, difficulty catching breath, gasping for air, dyspnea on exertion
+    </button>
+    <button onclick="autoFillDisease('persistent cough, cough with thick phlegm, recurrent chest infections, shortness of breath, fatigue')">
+        persistent cough, cough with thick phlegm, recurrent chest infections, shortness of breath, fatigue
+    </button>
+    <button onclick="autoFillDisease('persistent cough with mucus, chest discomfort, fatigue, low fever, shortness of breath')">
+        persistent cough with mucus, chest discomfort, fatigue, low fever, shortness of breath
+    </button>
+    <button onclick="autoFillDisease('binge eating, forced vomiting, misuse of laxatives, intense fear of weight gain, dental erosion')">
+        binge eating, forced vomiting, misuse of laxatives, intense fear of weight gain, dental erosion
+    </button>
+    <button onclick="autoFillDisease('painful lump base of big toe, big toe points inwards, swelling at joint, difficulty wearing shoes')">
+        painful lump base of big toe, big toe points inwards, swelling at joint, difficulty wearing shoes
+    </button>
+    <button onclick="autoFillDisease('flushing skin, persistent diarrhea, wheezing, rapid heart rate, abdominal pain')">
+        flushing skin, persistent diarrhea, wheezing, rapid heart rate, abdominal pain
+    </button>
+    <button onclick="autoFillDisease('sudden collapse, no breathing, no pulse, unconscious, emergency')">
+        sudden collapse, no breathing, no pulse, unconscious, emergency
+    </button>
+    <button onclick="autoFillDisease('chest pain, shortness of breath, palpitations, ankle swelling, high blood pressure, dizziness')">
+        chest pain, shortness of breath, palpitations, ankle swelling, high blood pressure, dizziness
+    </button>
+    <button onclick="autoFillDisease('numbness fingers, tingling hand, pain wrist, hand weakness, symptoms worse at night')">
+        numbness fingers, tingling hand, pain wrist, hand weakness, symptoms worse at night
+    </button>
+    <button onclick="autoFillDisease('mucus in throat, blocked stuffy nose, persistent cough, sensation of post-nasal drip')">
+        mucus in throat, blocked stuffy nose, persistent cough, sensation of post-nasal drip
+    </button>
+    <button onclick="autoFillDisease('abnormal vaginal bleeding, bleeding after sex, pelvic pain, watery bloody vaginal discharge')">
+        abnormal vaginal bleeding, bleeding after sex, pelvic pain, watery bloody vaginal discharge
+    </button>
+    <button onclick="autoFillDisease('neck pain stiffness,neck pain, shoulder pain, pain radiating to shoulders or arms, muscle weakness in arms, headache back of head')">
+        neck pain stiffness,neck pain, shoulder pain, pain radiating to shoulders or arms, muscle weakness in arms, headache back of head
+    </button>
+    <button onclick="autoFillDisease('pain when breathing, sharp pain in chest after trauma, bruising on chest, difficulty taking deep breath')">
+        pain when breathing, sharp pain in chest after trauma, bruising on chest, difficulty taking deep breath
+    </button>
+    <button onclick="autoFillDisease('productive cough, cough with yellow green mucus, shortness of breath, fever, chest tightness')">
+        productive cough, cough with yellow green mucus, shortness of breath, fever, chest tightness
+    </button>
+    <button onclick="autoFillDisease('itchy blister rash, spots all over body, fever, malaise, crusting rash')">
+        itchy blister rash, spots all over body, fever, malaise, crusting rash
+    </button>
+    <button onclick="autoFillDisease('itchy red swollen patches skin, burning sensation on toes fingers, symptoms after cold exposure')">
+        itchy red swollen patches skin, burning sensation on toes fingers, symptoms after cold exposure
+    </button>
+    <button onclick="autoFillDisease('abnormal vaginal discharge, pain when urinating, testicular pain swelling (male), bleeding between periods')">
+        abnormal vaginal discharge, pain when urinating, testicular pain swelling (male), bleeding between periods
+    </button>
+    <button onclick="autoFillDisease('severe persistent fatigue, fatigue not relieved by rest, post-exertional malaise, difficulty concentrating, muscle joint pain')">
+        severe persistent fatigue, fatigue not relieved by rest, post-exertional malaise, difficulty concentrating, muscle joint pain
+    </button>
+    <button onclick="autoFillDisease('swollen painless lymph nodes, chronic fatigue, night sweats, recurrent infections, unintended weight loss')">
+        swollen painless lymph nodes, chronic fatigue, night sweats, recurrent infections, unintended weight loss
+    </button>
+    <button onclick="autoFillDisease('fatigue, weight loss, night sweats, enlarged spleen, pain below ribs')">
+        fatigue, weight loss, night sweats, enlarged spleen, pain below ribs
+    </button>
+    <button onclick="autoFillDisease('persistent cough, cough with mucus, shortness of breath, wheezing, smoking history')">
+        persistent cough, cough with mucus, shortness of breath, wheezing, smoking history
+    </button>
+    <button onclick="autoFillDisease('pain lasting more than 3 months,pain lasting more than 2 months, persistent ache, pain unresponsive to standard treatment')">
+        pain lasting more than 3 months,pain lasting more than 2 months, persistent ache, pain unresponsive to standard treatment
+    </button>
+    <button onclick="autoFillDisease('chronic upper abdominal pain, pain radiating to back, oily stools (steatorrhea), diabetes, unexplained weight loss')">
+        chronic upper abdominal pain, pain radiating to back, oily stools (steatorrhea), diabetes, unexplained weight loss
+    </button>
+    <button onclick="autoFillDisease('jaundice, yellow skin, fatigue, fluid buildup abdomen (ascites), easy bruising, portal hypertension')">
+        jaundice, yellow skin, fatigue, fluid buildup abdomen (ascites), easy bruising, portal hypertension
+    </button>
+    <button onclick="autoFillDisease('pain shoulder area after fall, swelling bruising shoulder, inability to lift arm, shoulder deformity')">
+        pain shoulder area after fall, swelling bruising shoulder, inability to lift arm, shoulder deformity
+    </button>
+    <button onclick="autoFillDisease('watery diarrhea (often after antibiotics), abdominal cramps, fever, loss of appetite, severe diarrhea')">
+        watery diarrhea (often after antibiotics), abdominal cramps, fever, loss of appetite, severe diarrhea
+    </button>
+    <button onclick="autoFillDisease('chronic diarrhea, abdominal bloating, fatigue, unexplained weight loss, iron deficiency anemia, symptoms after eating gluten')">
+        chronic diarrhea, abdominal bloating, fatigue, unexplained weight loss, iron deficiency anemia, symptoms after eating gluten
+    </button>
+    <button onclick="autoFillDisease('tingling around mouth, small fluid-filled blister lip, crusting sore, herpes simplex')">
+        tingling around mouth, small fluid-filled blister lip, crusting sore, herpes simplex
+    </button>
+    <button onclick="autoFillDisease('deep unconsciousness, unresponsive to stimuli, eyes closed, abnormal breathing')">
+        deep unconsciousness, unresponsive to stimuli, eyes closed, abnormal breathing
+    </button>
+    <button onclick="autoFillDisease('ketoacidosis, low blood sugar, numbness feet, frequent infection, blurred vision, kidney damage')">
+        ketoacidosis, low blood sugar, numbness feet, frequent infection, blurred vision, kidney damage
+    </button>
+    <button onclick="autoFillDisease('head trauma, brief loss consciousness, headache, dizziness, confusion, nausea vomiting after injury')">
+        head trauma, brief loss consciousness, headache, dizziness, confusion, nausea vomiting after injury
+    </button>
+    <button onclick="autoFillDisease('blue tinge to skin lips (cyanosis), shortness of breath (infant), rapid breathing, feeding difficulty (infant)')">
+        blue tinge to skin lips (cyanosis), shortness of breath (infant), rapid breathing, feeding difficulty (infant)
+    </button>
+    <button onclick="autoFillDisease('muscle weakness at birth, floppiness (infant), poor head control, scoliosis, joint contractures')">
+        muscle weakness at birth, floppiness (infant), poor head control, scoliosis, joint contractures
+    </button>
+    <button onclick="autoFillDisease('red eye, itchy eye, watery eye, sticky discharge, pink eye')">
+        red eye, itchy eye, watery eye, sticky discharge, pink eye
+    </button>
+    <button onclick="autoFillDisease('infrequent bowel movements, hard lumpy stools, straining during defecation, feeling of incomplete evacuation')">
+        infrequent bowel movements, hard lumpy stools, straining during defecation, feeling of incomplete evacuation
+    </button>
+    <button onclick="autoFillDisease('angina, chest pain with exertion, shortness of breath, heart attack history')">
+        angina, chest pain with exertion, shortness of breath, heart attack history
+    </button>
+    <button onclick="autoFillDisease('persistent fatigue after COVID, brain fog, shortness of breath (long-term), palpitations, joint pain after infection')">
+        persistent fatigue after COVID, brain fog, shortness of breath (long-term), palpitations, joint pain after infection
+    </button>
+    <button onclick="autoFillDisease('sharp pain side of breastbone, tenderness when pressing on ribs, chest pain worse with deep breath or cough')">
+        sharp pain side of breastbone, tenderness when pressing on ribs, chest pain worse with deep breath or cough
+    </button>
+    <button onclick="autoFillDisease('persistent cough, dry cough, hacking, wet cough, cough with phlegm')">
+        persistent cough, dry cough, hacking, wet cough, cough with phlegm
+    </button>
+    <button onclick="autoFillDisease('chronic abdominal pain, persistent diarrhea, unexplained weight loss, blood in stool, mouth ulcers, inflammation of intestines')">
+        chronic abdominal pain, persistent diarrhea, unexplained weight loss, blood in stool, mouth ulcers, inflammation of intestines
+    </button>
+    <button onclick="autoFillDisease('barking cough (child), harsh noisy breathing (child), stridor, fever, symptoms worse at night')">
+        barking cough (child), harsh noisy breathing (child), stridor, fever, symptoms worse at night
+    </button>
+    <button onclick="autoFillDisease('persistent cough with thick mucus, recurrent chest infections, poor weight gain (child), oily fatty stools, salty sweat')">
+        persistent cough with thick mucus, recurrent chest infections, poor weight gain (child), oily fatty stools, salty sweat
+    </button>
+    <button onclick="autoFillDisease('painful urination, burning when peeing, frequent urge to urinate, pelvic pressure, lower abdominal discomfort (female)')">
+        painful urination, burning when peeing, frequent urge to urinate, pelvic pressure, lower abdominal discomfort (female)
+    </button>
+</div>
+
+                                       <div class="card step-card">
+                                                <h3>2. Enter Symptoms</h3><textarea id="symptomsInput" rows="4" placeholder="Enter symptoms separated by commas..."></textarea><button onclick="checkDisease()" class="primary-btn"><i class="fas fa-search"></i>Run Symptom Checker </button>
+                                            </div>
+                                            Step 3
+                                                <div class="card step-card">
+                                                    <h3>3. Find Recommended Doctor</h3><input type="text" id="specialtyInput" placeholder="Specialty will appear" disabled><label>Select Your District:</label><select id="districtSelect">
+                                                       
+                                                        <option value="" selected disabled>Select District</option>
+                                                        <option value="Guwahati">Guwahati</option>
+                                                        <option value="Bongaigaon">Bongaigaon</option>
+                                                        <option value="Mangaldoi">Mangaldoi</option>
+                                                    </select><button onclick="findDoctors()" class="secondary-btn"><i class="fas fa-users"></i>Find Doctors👆        <h3 style="color: #ff9d00;">Right now, this tool includes data from only a few districts. In the future, we plan to add not just all districts of Assam but every district and major city across India to make the results more useful for everyone.</h3> </button>
+                                                </div>
+                            </div>
+                            
+
+<!-- Add this inside <body> before </main> -->
+<!-- PROFILE DASHBOARD (HTML) -->
+<section id="profile-section" class="glass-section profile-section">
+  <h1>My Profile</h1>
+  <div class="profile-dashboard">
+    <div class="photo-container">
+      <img src="default-profile.png" id="profile-photo-preview" alt="Profile Picture">
+      <input type="file" id="profile-photo-upload" accept="image/*">
+    </div>
+
+    <form class="profile-form" onsubmit="return false;">
+      <label for="profile-name">Name</label>
+      <input type="text" id="profile-name" placeholder="Your Name">
+
+      <label for="profile-age">Age</label>
+      <input type="number" id="profile-age" placeholder="Age" min="0">
+
+      <label for="profile-dob">Date of Birth</label>
+      <input type="date" id="profile-dob">
+
+      <label for="profile-height">Height (cm)</label>
+      <input type="number" id="profile-height" placeholder="Height in cm" min="0">
+
+      <label for="profile-weight">Weight (kg)</label>
+      <input type="number" id="profile-weight" placeholder="Weight in kg" min="0">
+
+      <!-- BMI result box -->
+      <div id="bmi-result" class="bmi-result" aria-live="polite">
+        <strong>BMI:</strong> <span id="bmi-value">—</span>
+        <div id="bmi-category" class="bmi-category">Enter height & weight</div>
+      </div>
+
+      <button type="button" id="save-profile-btn">Save Profile</button>
+    </form>
+  </div>
+</section>
+
+<!-- OPTIONAL: small styles for BMI result (merges with your glass look) -->
+<style>
+  .bmi-result{
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,182,193,0.15);
+    color: #fff;
+    font-size: 14px;
+  }
+  .bmi-category {
+    margin-top: 6px;
+    font-weight: 600;
+    padding: 6px 8px;
+    display: inline-block;
+    border-radius: 8px;
+    background: rgba(255,182,193,0.06);
+  }
+  /* colored categories */
+  .cat-underweight { color: #ffd166; background: rgba(255,209,102,0.08); }
+  .cat-normal { color: #7efc6f; background: rgba(126,252,111,0.06); }
+  .cat-overweight { color: #ffb366; background: rgba(255,179,102,0.06); }
+  .cat-obese { color: #ff6b6b; background: rgba(255,107,107,0.06); }
+</style>
+
+<!-- SCRIPT: profile preview, save/load, BMI calculation -->
+<script>
+(function(){
+  // DOM refs
+  const photoPreview = document.getElementById('profile-photo-preview');
+  const photoUpload = document.getElementById('profile-photo-upload');
+
+  const nameInput = document.getElementById('profile-name');
+  const ageInput = document.getElementById('profile-age');
+  const dobInput = document.getElementById('profile-dob');
+  const heightInput = document.getElementById('profile-height');
+  const weightInput = document.getElementById('profile-weight');
+
+  const bmiValueEl = document.getElementById('bmi-value');
+  const bmiCategoryEl = document.getElementById('bmi-category');
+  const saveBtn = document.getElementById('save-profile-btn');
+
+  const STORAGE_KEY = 'symptomax_profile_v1';
+
+  // image preview
+  photoUpload.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      photoPreview.src = ev.target.result;
+      // keep base64 in localStorage when saving profile
+      photoPreview.dataset.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // load saved profile on start
+  function loadProfile(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const p = JSON.parse(raw);
+      nameInput.value = p.name || '';
+      ageInput.value = p.age || '';
+      dobInput.value = p.dob || '';
+      heightInput.value = p.height || '';
+      weightInput.value = p.weight || '';
+      if (p.photo) {
+        photoPreview.src = p.photo;
+        photoPreview.dataset.src = p.photo;
+      }
+      // calculate BMI if height & weight exist
+      computeAndShowBMI();
+    } catch (err) {
+      console.warn('Failed to load profile', err);
+    }
+  }
+
+  // save profile
+  saveBtn.addEventListener('click', () => {
+    const profile = {
+      name: nameInput.value.trim(),
+      age: ageInput.value,
+      dob: dobInput.value,
+      height: heightInput.value,
+      weight: weightInput.value,
+      photo: photoPreview.dataset.src || photoPreview.src || ''
+    };
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+      // recalc BMI and give simple feedback
+      computeAndShowBMI();
+      saveBtn.textContent = 'Saved ✓';
+      setTimeout(()=> saveBtn.textContent = 'Save Profile', 900);
+    } catch (err) {
+      alert('Unable to save profile: ' + err.message);
+    }
+  });
+
+  // BMI calculation (height in cm, weight in kg)
+  function calculateBMI(heightCm, weightKg) {
+    const h = Number(heightCm);
+    const w = Number(weightKg);
+    if (!h || !w || h <= 0 || w <= 0) return null;
+    const heightM = h / 100;
+    const bmi = w / (heightM * heightM);
+    // round to 1 decimal place safely
+    return Math.round(bmi * 10) / 10;
+  }
+
+  // category helper (WHO-ish categories)
+  function bmiCategory(bmi) {
+    if (bmi === null) return { text: 'Enter height & weight', cls: '' };
+    if (bmi < 18.5) return { text: 'Underweight', cls: 'cat-underweight' };
+    if (bmi < 25) return { text: 'Normal weight', cls: 'cat-normal' };
+    if (bmi < 30) return { text: 'Overweight', cls: 'cat-overweight' };
+    return { text: 'Obese', cls: 'cat-obese' };
+  }
+
+  // compute + display
+  function computeAndShowBMI(){
+    const h = heightInput.value;
+    const w = weightInput.value;
+    const bmi = calculateBMI(h, w);
+    if (bmi === null) {
+      bmiValueEl.textContent = '—';
+    } else {
+      bmiValueEl.textContent = bmi.toFixed(1);
+    }
+    const cat = bmiCategory(bmi);
+    bmiCategoryEl.textContent = cat.text;
+    // reset classes then apply
+    bmiCategoryEl.className = 'bmi-category ' + (cat.cls || '');
+  }
+
+  // live updates when height/weight change
+  heightInput.addEventListener('input', computeAndShowBMI);
+  weightInput.addEventListener('input', computeAndShowBMI);
+
+  // prefill from storage when page loads
+  document.addEventListener('DOMContentLoaded', loadProfile);
+})();
+</script>
+
+<!-- PROFILE DASHBOARD (HIDDEN BY DEFAULT) -->
+<section id="profile-section" class="glass-section profile-section hidden">
+    <h1>My Profile</h1>
+    <div class="profile-dashboard">
+        <div class="photo-container">
+            <img src="default-profile.png" id="profile-photo-preview" alt="Profile Picture">
+            <input type="file" id="profile-photo-upload" accept="image/*">
+        </div>
+
+        <form class="profile-form">
+            <label>Name</label>
+            <input type="text" id="profile-name" placeholder="Your Name">
+            <label>Age</label>
+            <input type="number" id="profile-age" placeholder="Age">
+            <label>Date of Birth</label>
+            <input type="date" id="profile-dob">
+            <label>Height (cm)</label>
+            <input type="number" id="profile-height" placeholder="Height">
+            <label>Weight (kg)</label>
+            <input type="number" id="profile-weight" placeholder="Weight">
+            <button type="button" id="save-profile-btn">Save Profile</button>
+        </form>
+
+        <div class="bmi-display">
+            <h3>BMI: <span id="bmi-value">-</span></h3>
+            <h4>Status: <span id="bmi-status">-</span></h4>
+        </div>
+    </div>
+</section>
+
+                                <div class="result-panel">
+                                    <div id="result" class="chat-box">
+                                        <h3><i class="fas fa-comments"></i>Symptomax Conversation Log</h3>
+                                        <div class="initial-message system-message chat-message">
+                                            <p>Hello ! I am Symptomax,
+                                                your health assistant. Start by entering your details.</p>
+                                            <p style="color: rgb(255, 77, 0);">This tool does not give a real diagnosis. Always consult a doctor. It’s only for general information and may not be accurate for every person. Don’t use it in emergencies. If your symptoms get worse or you feel unsure, seek medical help right away.</p>
+                                        </div>
+                                    </div>
+                                    <div id="doctorResult" class="doctor-results"></div>
+                                </div>
+                    </div>
+                </section>
+                    
+            
+                   
+                        <div class="resource-group">
+                            <h3>Hospitals Near Me</h3>
+                            <p><a href="https://www.google.com/maps/search/hospital+near+me/" target="_blank">Open on Google Maps </a></p><iframe src="https://www.google.com/maps?q=hospital+near+me&output=embed" style="width:100%; height:350px; border:0;"></iframe>
+                        </div>
+                       
+                          <div class="card step-card">
+    <h3>🔍 Wikipedia Disease Search</h3>
+    <input type="text" id="wikiSearchInput" placeholder="Type a disease name">
+    <button onclick="searchWikipedia()" class="secondary-btn">
+        <i class="fab fa-wikipedia-w"></i> Search Wikipedia
+    </button>
+</div>
+
+<script>
+function searchWikipedia() {
+    const query = document.getElementById("wikiSearchInput").value.trim();
+    if(query) {
+        const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(query)}`;
+        window.open(url, "_blank"); // opens Wikipedia page in a new tab
+    } else {
+        alert("Please enter a disease name to search.");
+    }
+}
+</script>
+
+                            Team
+                                <div class="card gradient-glass-card">
+    <h3>Our Development Team - students of Kendriya Vidyalaya New Bongaigaon</h3>
+
+<p>
+    <span class="lead-dev">
+        Mohit Mandal – Lead Developer & Code Editor
+    </span>
+</p>
+
+<p>
+    <span class="team-members">
+        Team Members (Data managers):  
+        Dhrubajyoti Roy, Ayush Kumar(9th), Sourav Medhi, Albad Hazawary, Sahil Singh
+    </span>
+</p>
+
+
+                               
+                                    <div class="card">
+                                        <h3>Safety Disclaimer</h3>
+                                        <p class="danger-text"><i class="fas fa-exclamation-triangle"></i>This tool is for awareness only. Always consult a real doctor. </p>
+                                    </div>
+                                 
+
+                                        <div class="card rating-card gradient-glass-card">
+    <h3>⭐ Rate Symptomax & Unlock Premium</h3>
+    <p>Give a rating (1–5)</p>
+    <div class="stars">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <button id="submitRating" class="primary-btn">Submit Rating</button>
+    <div id="premiumAccess" class="premium-access hidden">
+        <h4>🎉 Premium Unlocked !</h4>
+        <button onclick="goToPremium()" class="secondary-btn">Access Premium</button>
+    </div>
+</div>
+
+
+                                       
+                                            <section id="extra-corners">
+                                                <h2>Useful Resources    </h2>
+                                                <h3 style="color: #ff8400;">(DISCLAIMER!!!) THIS ARE NOT OUR WEBSITES LINK 👇 BUT FOR YOUR BETTER EXPERIENCE WE ARE SUGGESTING THIS WEBSITES</h3>
+                                                <div class="resource-group">
+                                                    <h3>Government Health Websites</h3>
+                                                    <ul>
+                                                        <li><a href="https://www.mohfw.gov.in">MoHFW</a></li><p>👆click</p>
+                                                        <li><a href="https://abdm.gov.in">ABDM</a></li><p>👆click</p>
+                                                        <li><a href="https://www.icmr.gov.in">ICMR</a></li><p>👆click</p><li><a href="https://www.aiimsexams.ac.in/">AIIMS</a></li><p>👆click</p>
+                                                    </ul>
+                                                </div>
+
+
+
+<div class="resource-group">
+                                                    <h3>SOME E-pharmacies </h3>
+                                                    <ul>
+                                                        <li><a href="https://pharmeasy.in/health-care?src=header">PharmEasy</a></li><p>👆click</p>
+                                                        <li><a href="https://www.netmeds.com/sections/order-medicine-online">NETMEDS</a></li><p>👆click</p>
+                                                        <li><a href="https://sastasundar.com/order-online?utm_source=Google%20Ads&utm_medium=paid&utm_campaign=Google%20Ads%20New%20LP%20&utm_id=Google%20Ads%20-New%20LP&gad_source=1&gad_campaignid=22848408230&gbraid=0AAAAAq35o3C4KWHmbplsZFlYGhQgOVY_f&gclid=CjwKCAiAxc_JBhA2EiwAFVs7XCTJt48DkWSR13aCtOZY0m2jMx0pFzr_2CP6dOT_-vkhUrEhcZPQ-RoCP6UQAvD_BwE">SASTA SUNDAR</a></li><p>👆click</p>
+                                                    </ul>
+                                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                                                <div class="resource-group">
+                                                    <h3>AQI Websites</h3>
+                                                    <ul>
+                                                        <li><a href="https://waqi.info">WAQI</a></li><p>👆click</p>
+                                                        <li><a href="https://safar.tropmet.res.in">SAFAR</a></li><p>👆click</p>
+                                                    </ul>
+                                                </div>
+                                                <div class="resource-group">
+                                                    <h3>Hospital Directory</h3>
+                                                    <ul>
+                                                        <li><a href="https://hospitals.pmjay.gov.in">Ayushman Bharat Hospital Finder</a></li><p>👆click</p>
+                                                    </ul> </div>
+       
+ 
+
+
+                                            </section>
+        </main>
+        <footer> 
+
+
+
+<centre><h1>THANK YOU</h1></centre>
+
+
+
+
+<div class="bottom-nav">
+    <a onclick="navigateTo('home-page')" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </a>
+
+  
+
+    <a onclick="navigateTo(0,document.body.scrollHeight)" class="nav-item">
+        <i class="fas fa-bars"></i>
+        <span>MORE</span>
+    </a>
+
+
+    <a href="nutrition.html" class="nav-item">
+        <i class="fas fa-apple-alt"></i>
+        <span>SATTVIK KITCHEN</span>
+    </a>
+    <!-- SymptoCoin Button -->
+    <a id="symptoNavBtn" class="nav-item">
+        <i class="fas fa-coins"></i>
+        <span>SymptoCoin</span>
+    </a>
+
+    <!-- PROFILE BUTTON -->
+    <a id="profile-nav-btn" class="nav-item">
+        <i class="fas fa-user-circle"></i>
+        <span>Profile</span>
+    </a>
+</div>
+
+<div id="overlay" class="hidden"></div>
+
+<!-- SymptoCoin Panel -->
+<div id="symptoPanel" style="display:none;position:fixed;top:50%;left:50%;
+     transform:translate(-50%,-50%);background:#fff;color:#333;padding:25px;
+     border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.25);z-index:2000;
+     width:320px;max-width:90%;text-align:center;">
+     
+  <h2>💰 SymptoCoin & Daily Streak</h2>
+  <p>This feature rewards you for spending time on our website. You earn coins and maintain a daily streak!</p>
+  
+  <p><strong>Earned Coins:</strong> <span id="panelCoins">0</span></p>
+  <p><strong>Current Streak:</strong> <span id="panelStreak">0</span> days</p>
+  
+  <p>How it works:</p>
+  <ul style="text-align:left;">
+    <li>💸 1 Coin = 1 minute spent on the site</li>
+    <li>🔥 Daily streak increases if you visit the site on consecutive days</li>
+    <li>⚠️ Skipping a day resets your streak</li>
+  </ul>
+  
+  <button id="closeSymptoPanel" style="margin-top:15px;padding:8px 12px;
+          border:none;border-radius:6px;background:#2b7a2f;color:white;cursor:pointer;">
+    Close
+  </button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <p>&copy;
+                2025 Symptomax. All rights reserved.</p>
+        </footer>
+        <script src="script.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const symptoBtn = document.getElementById('symptoNavBtn');
+    const symptoPanel = document.getElementById('symptoPanel');
+    const closeBtn = document.getElementById('closeSymptoPanel');
+
+    if (symptoBtn && symptoPanel && closeBtn) {
+      symptoBtn.addEventListener('click', () => {
+        symptoPanel.style.display = 'block';
+      });
+
+      closeBtn.addEventListener('click', () => {
+        symptoPanel.style.display = 'none';
+      });
+    } else {
+      console.error('SymptoCoin elements not found. Check HTML IDs.');
+    }
+  });
+</script>
+
+
+
+
+
+<script>
+  const btn = document.getElementById("drBabuButton");
+  const box = document.getElementById("drBabuChatBox");
+  const closeBtn = document.getElementById("closeChat");
+
+  btn.addEventListener("click", () => {
+    box.style.display = "flex";  // open chat
+  });
+
+  closeBtn.addEventListener("click", () => {
+    box.style.display = "none";  // close chat
+  });
+</script>
+
+<script src="https://widget.cxgenie.ai/widget.js" data-aid="daf063f7-b592-499c-957e-bf328d24585b"
+		
+		 data-lang="en"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+<script>
+
+function autoFillDisease(name) {
+    document.getElementById("symptomsInput").value = name;
+}
+
+
+</script>
+
+
+
+
+    </body>
+
+    </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

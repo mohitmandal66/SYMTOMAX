@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sattvik Kitchen — Dish Suggester & Grocery Planner</title>
+
+
+<style> 
+
+
+
+
+
+/* ----------------------------------------------------
+   GLOBAL BACKGROUND — Dark Animated Gradient (No Toggle)
+-----------------------------------------------------*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    color: #ffffff;
+
+    /* Dark Apple-style gradient background */
+    background: linear-gradient(135deg, #0a0f1c, #1c0f2c, #001f2d);
+    background-size: 350% 350%;
+    animation: bgMove 14s ease infinite;
+
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* ----------------------------------------------------
+   CONTAINER
+-----------------------------------------------------*/
+.container {
+    width: 100%;
+    max-width: 780px;
+    margin: auto;
+}
+
+/* ----------------------------------------------------
+   DARK GLASSMORPHIC CARD
+-----------------------------------------------------*/
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px) saturate(120%);
+    -webkit-backdrop-filter: blur(18px) saturate(120%);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.55);
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 650;
+}
+
+/* ----------------------------------------------------
+   INPUT + SELECT — Dark Glass
+-----------------------------------------------------*/
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 16px;
+
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+    outline: none;
+}
+
+input::placeholder, select {
+    color: #dcdcdc;
+}
+
+/* ----------------------------------------------------
+   BUTTONS — PURE BLACK Apple Style
+-----------------------------------------------------*/
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 18px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+
+    background: #000;
+    color: #fff;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+    transition: 0.25s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 22px rgba(0,0,0,0.9);
+}
+
+/* ----------------------------------------------------
+   DISH RESULT CARD — Dark Glass
+-----------------------------------------------------*/
+.dish-card {
+    padding: 18px;
+    margin-top: 16px;
+
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 20px;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+/* ----------------------------------------------------
+   NUTRITION LABEL
+-----------------------------------------------------*/
+.nutrition-box {
+    padding: 16px;
+    margin-top: 14px;
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.55);
+}
+
+/* ----------------------------------------------------
+   WATER INTAKE BAR
+-----------------------------------------------------*/
+.water-intake {
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.6);
+}
+
+/* ----------------------------------------------------
+   FOOTER TEXT
+-----------------------------------------------------*/
+footer {
+    text-align: center;
+    padding: 12px;
+    margin-top: 20px;
+    color: #fff;
+    opacity: 0.85;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  :root{
+    --bg:#f6faf3;
+    --card:#fff;
+    --accent:#ff7700;
+    --muted:#666;
+    --glass: rgba(0,0,0,0.04);
+    --pill:#eef7ee;
+    --maxw:1100px;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  body{
+    margin:0;
+    background:linear-gradient(180deg,var(--bg),#f0f6ef);
+    color:#123;
+    padding:22px;
+    display:flex;
+    justify-content:center;
+  }
+  .app {
+    width:100%;
+    max-width:var(--maxw);
+  }
+
+  header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:16px;
+  }
+  header h1{
+    margin:0;
+    color:var(--accent);
+    font-size:1.6rem;
+  }
+  header p{margin:0;color:var(--muted);font-size:.95rem;}
+
+  .grid {
+    display:grid;
+    grid-template-columns: 1fr 380px;
+    gap:18px;
+  }
+
+  .card {
+    background:var(--card);
+    border-radius:12px;
+    padding:16px;
+    box-shadow:0 6px 20px rgba(15,30,15,0.06);
+    border:1px solid var(--glass);
+  }
+
+  .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .section-title h2{margin:0;font-size:1.05rem;color:var(--accent);}
+  .hint{font-size:.85rem;color:var(--muted)}
+
+  .ingredients-list{display:flex;flex-wrap:wrap;gap:8px}
+  .ing {
+    background:var(--pill);
+    border-radius:8px;
+    padding:8px 10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:.95rem;
+  }
+  input[type="checkbox"]{width:16px;height:16px}
+
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  button{
+    background:var(--accent);
+    color:#fff;border:0;padding:9px 12px;border-radius:8px;cursor:pointer;font-weight:600;
+  }
+  button.secondary{background:#4e9b5f}
+  button.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+
+  .dish-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+  .dish {
+    border-radius:10px;padding:12px;background:linear-gradient(180deg,#ffffff,#fcfffb);
+    border:1px solid var(--glass);
+  }
+  .dish h3{margin:0 0 6px 0;font-size:1rem;color:#1a3a1a}
+  .dish p{margin:0;color:var(--muted);font-size:.92rem}
+  .small{font-size:.85rem;color:var(--muted)}
+
+  .recipe {margin-top:10px;padding:10px;border-radius:8px;background:#fbfff9;border:1px dashed rgba(43,122,47,0.12)}
+  ol{margin:8px 0 0 18px;padding:0}
+  ul{margin:8px 0 0 18px;padding:0}
+
+  /* right column */
+  .right-col {position:relative}
+  .panel {margin-bottom:12px}
+  .cart-list{max-height:240px;overflow:auto;margin-top:8px}
+  .cart-item{display:flex;justify-content:space-between;gap:12px;padding:8px;border-radius:8px;background:var(--pill);margin-bottom:8px;align-items:center}
+  .qty {display:flex;gap:6px;align-items:center}
+  .qty button{background:#eee;color:#111;padding:6px 8px;border-radius:6px;border:0;cursor:pointer}
+  .badge{background:#fff;border-radius:8px;padding:6px 8px;border:1px solid var(--glass);font-weight:700}
+
+  /* nutrition table */
+  .nutri-table{width:100%;border-collapse:collapse;margin-top:8px}
+  .nutri-table td,.nutri-table th{padding:6px;border-bottom:1px solid var(--glass);font-size:.92rem}
+  .substitute{background:#fff7f0;border:1px solid rgba(255,150,0,0.12);padding:10px;border-radius:8px}
+
+  /* diet plan */
+  .plan-day{background:#fff; padding:10px;border-radius:8px;border:1px dashed rgba(0,0,0,0.04); margin-bottom:8px}
+  .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:.9rem}
+  @media (max-width:980px){
+    .grid{grid-template-columns:1fr}
+    .right-col{order:-1}
+  }
+</style>
+</head>
+
+
+
+
+
+
+
+
+
+<!-- CX Genie AI Widget -->
+<script src="https://widget.cxgenie.ai/widget.js" 
+        data-aid="1536c0c5-5e45-47f6-bc0d-e2dea295522c"
+        data-lang="en"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body> 
+  <div class="app">
+    <header>
+      <div>
+        <h1>Sattvik Kitchen</h1>
+        <p>Dish suggester • recipes • nutrition facts • grocery cart • weekly plan (offline)</p> <h2 class="tagline" style="margin-top:10px; font-size:1.4rem; color:#ff6a00; font-weight:600;">
+    ~Swasth Bharat ke liye Sattvik choices~     <h2 class="tagline" style="margin-top:10px; font-size:1.4rem; color:#ff0000; font-weight:600;">जय हिन्द</h2>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Back Button -->
+<button id="backBtn" class="back-button">← Back</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+  <input type="text" id="searchQuery" placeholder="Search YouTube videos">
+  <button id="searchBtn">Search</button>
+</div>
+
+<div id="searchResults"></div>
+
+<div id="ytPlayerContainer">
+  <div id="ytPlayer"></div>
+</div>
+
+
+
+<script>
+document.getElementById("backBtn").addEventListener("click", function() {
+    window.history.back();
+});
+</script>
+
+
+
+<script>
+document.getElementById("floatingBackBtn").addEventListener("click", function() {
+    window.history.back();
+});
+</script>
+
+
+<style>#ytPlayerContainer { width: 560px; height: 315px; margin: 20px 0; }
+.video-result { cursor: pointer; margin: 10px 0; }
+.video-result img { width: 120px; vertical-align: middle; margin-right: 10px; }
+</style>
+<script>let player;
+const apiKey = 'AIzaSyAFCMAtyDatgD2jNcT6kqTnkQoEaadUeBY'; // Replace with your API key
+
+// Load YouTube IFrame API
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(tag);
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('ytPlayer', {
+    height: '315',
+    width: '560',
+    videoId: '', // initially empty
+  });
+}
+
+// Search videos
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const query = document.getElementById('searchQuery').value;
+  fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${encodeURIComponent(query)}&key=${apiKey}`)
+    .then(res => res.json())
+    .then(data => {
+      const resultsDiv = document.getElementById('searchResults');
+      resultsDiv.innerHTML = '';
+      data.items.forEach(item => {
+        const videoDiv = document.createElement('div');
+        videoDiv.className = 'video-result';
+        videoDiv.innerHTML = `
+          <img src="${item.snippet.thumbnails.default.url}" />
+          ${item.snippet.title}
+        `;
+        videoDiv.addEventListener('click', () => {
+          player.loadVideoById(item.id.videoId);
+          player.playVideo();
+        });
+        resultsDiv.appendChild(videoDiv);
+      });
+    });
+});
+</script><style>#searchQuery {
+  background-color: #e0d2d2;       /* black background */
+  color: #003cff;                  /* white text */
+  border: 1px solid #b5a1a1;       /* optional border */
+  padding: 8px 12px;
+  border-radius: 50px;           /* rounded corners */
+  width: 300px;                 /* adjust width */
+}
+
+#searchQuery::placeholder {
+  color: #aaa;                  /* placeholder text color */
+}
+
+#searchBtn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2f6113;
+  color: #fff;
+  cursor: pointer;
+}
+#searchBtn:hover {
+  background-color: #555;
+}
+</style>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- left big column -->
+      <div>
+        <div class="card">
+          <div class="section-title">
+            <h2>1. Select available ingredients</h2>
+            <span class="hint">Pick vegetables, staples, spices you have</span>
+          </div>
+
+          <div id="ingredientsWrap" class="ingredients-list"></div>
+
+          <div class="controls">
+            <button onclick="suggestDishes()">Suggest Dishes</button>
+            <button class="secondary" onclick="generateDietPlan()">Generate 7-day Diet Plan</button>
+            <button class="ghost" onclick="clearSelected()">Clear selection</button>
+          </div>
+
+          <div style="margin-top:12px" class="small">Tip: select multiple ingredients — only dishes that can be prepared from selected essentials will show.</div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="section-title">
+            <h2>2. Suggested Sattvik Dishes</h2>
+            <span class="hint">Click a dish to view recipe and add its ingredients to cart</span>
+          </div>
+
+          <div id="dishGrid" class="dish-grid"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="section-title">
+            <h2>3. Recipe & Details</h2>
+            <span class="hint">Choose a dish to see steps, nutrition and substitutes</span>
+          </div>
+          <div id="selectedRecipe">
+            <div class="small">No dish selected.</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="section-title">
+            <h2>4. Weekly Sample Sattvik Meal Plan</h2>
+            <span class="hint">Based on available dishes — you can regenerate anytime</span>
+          </div>
+          <div id="dietPlan"></div>
+        </div>
+
+      </div>
+
+      <!-- right column -->
+      <div class="right-col">
+        <div class="card panel">
+          <div class="section-title">
+            <h2>Nutrition Facts</h2>
+            <span class="hint">Pick a vegetable to view its simple nutrition</span>
+          </div>
+          <select id="nutriSelect" onchange="showNutrition()" style="width:100%;padding:8px;border-radius:8px;border:1px solid var(--glass)">
+            <option value="">— choose vegetable —</option>
+          </select>
+          <table id="nutriTable" class="nutri-table" style="display:none"></table>
+        </div>
+
+        <div class="card panel">
+          <div class="section-title">
+            <h2>Substitute Suggester</h2>
+            <span class="hint">Click an ingredient to see healthy substitutes</span>
+          </div>
+          <div id="substituteWrap"></div>
+        </div>
+
+        <div class="card panel">
+          <div class="section-title">
+            <h2>Grocery Cart</h2>
+            <span class="hint">Items you added from recipes — saved locally</span>
+          </div>
+          <div>
+            <div style="display:flex;gap:8px">
+              <button onclick="clearCart()" class="ghost">Clear Cart</button>
+              <button onclick="downloadGrocery()" class="secondary">Download List</button>
+              <button onclick="autoGenerateGrocery()">Auto-generate from selected dishes</button>
+            </div>
+
+            <div class="cart-list" id="cartList"></div>
+          </div>
+        </div>
+
+        <div class="card panel">
+          <div class="section-title">
+            <h2>Quick Actions</h2>
+            <span class="hint">Utilities</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button onclick="saveSelectedToLocal()">Save selection</button>
+            <button class="secondary" onclick="loadSelectionFromLocal()">Load selection</button>
+            <button class="ghost" onclick="exportAllData()">Export data (JSON)</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">Built for your Sattvik kitchen — data is stored locally in your browser.</div>
+  </div>
+
+
+
+
+
+
+
+
+
+<script>
+/* ---------------------------
+  Data: ingredients, nutrition facts, substitutes, dishes
+   --------------------------- */
+
+const ALL_INGREDIENTS = [
+  
+  'Potato','Tomato','Carrot','Spinach','Cauliflower','Cabbage','Beans','Peas','Bottle Gourd',
+  'Pumpkin','Drumstick','Tindora','Plantain','Beetroot', 'Paneer', 'Soyabean', 'Capsicum', 'Mushroom', 'Tomato Paste', 'Radish','Fenugreek','Okra','Brinjal',
+  'Almonds','Milk','Rice','Moong Dal','Sabudana','Ragi','Sama Rice','Buckwheat','Makhana','Coconut',
+  'Ghee','Oil','Salt','Turmeric','Cumin','Asafoetida','Mustard Seeds','Urad Dal','Red Chili','Green Chili',
+  'Curry Leaves','Ginger','Garlic Free Yogurt','Lime','Coriander','Byadgi Chillies','Sugar'
+];
+
+// minimal nutrition facts (per 100g, approximate simple)
+const NUTRITION = {
+  'Potato': {cal:77,carb:'17g',protein:'2g',fiber:'2.2g'},
+  'Tomato': {cal:18,carb:'3.9g',protein:'0.9g',fiber:'1.2g'},
+  'Carrot': {cal:41,carb:'10g',protein:'0.9g',fiber:'2.8g'},
+  'Spinach': {cal:23,carb:'3.6g',protein:'2.9g',fiber:'2.2g'},
+  'Cauliflower': {cal:25,carb:'5g',protein:'2g',fiber:'2g'},
+  'Cabbage': {cal:25,carb:'5.8g',protein:'1.3g',fiber:'2.5g'},
+  'Beans': {cal:31,carb:'7g',protein:'1.8g',fiber:'3.4g'},
+  'Peas': {cal:81,carb:'14g',protein:'5g',fiber:'5g'},
+  'Bottle Gourd': {cal:14,carb:'3.4g',protein:'0.6g',fiber:'1g'},
+  'Pumpkin': {cal:26,carb:'6.5g',protein:'1g',fiber:'0.5g'},
+  'Drumstick': {cal:37,carb:'8.5g',protein:'2.0g',fiber:'1.4g'},
+  'Tindora': {cal:20,carb:'4g',protein:'1.1g',fiber:'2g'},
+  'Plantain': {cal:119,carb:'31g',protein:'1.3g',fiber:'2.3g'},
+  'Beetroot': {cal:43,carb:'10g',protein:'1.6g',fiber:'2.8g'},
+  'Radish': {cal:16,carb:'3.4g',protein:'0.7g',fiber:'1.6g'},
+  'Almonds': {cal:579,carb:'22g',protein:'21g',fiber:'12g'},
+  'Rice': {cal:130,carb:'28g',protein:'2.4g',fiber:'0.4g'},
+  'Moong Dal': {cal:347,carb:'59g',protein:'24g',fiber:'16g'},
+  'Sabudana': {cal:350,carb:'88g',protein:'0.2g',fiber:'0.9g'},
+  'Coconut': {cal:354,carb:'15g',protein:'3.3g',fiber:'9g'}
+};NUTRITION['Paneer'] = {cal:265, carb:'1.2g', protein:'18g', fiber:'0g'};
+NUTRITION['Brinjal'] = {cal:25, carb:'5.9g', protein:'1g', fiber:'3g'};
+NUTRITION['Capsicum'] = {cal:31, carb:'6g', protein:'1g', fiber:'2.1g'};
+
+// simple substitute map
+const SUBSTITUTES = {
+  'Onion': ['Fenugreek (for aroma in sattvik style)','Asafoetida (small pinch)'],
+  'Garlic': ['Ginger (small amount)','Asafoetida (hing)'],
+  'Tomato': ['Pumpkin (for mild sweetness in some curries)','Beetroot (in certain gravies)'],
+  'Potato': ['Plantain (green)','Sweet Potato'],
+  'Rice': ['Sama Rice','Quinoa (non-traditional)'],
+  'Ghee': ['Filtered oil (small amount)','Light butter if required (not sattvik)'],
+  'Paneer': ['Tofu (for vegan)'],
+  'Salt': ['Rock salt','Black salt (sendha)']
+};
+
+/* ---------------------------
+  Dishes database (expanded) — each dish has name, ingredients (list of required main items),
+  optional extras, steps array.
+   --------------------------- */
+
+const DISHES = [
+
+
+
+  // paneer based
+  {name:'Paneer Bhurji (No Onion Garlic)', ingredients:['Paneer','Tomato','Capsicum','Turmeric','Salt','Ghee'], steps:[
+    'Crumble paneer.',
+    'Sauté capsicum in ghee with turmeric.',
+    'Add tomato and cook till soft.',
+    'Add paneer, mix well, cook 3-4 minutes, garnish with coriander.'
+  ]},
+  {name:'Palak Paneer', ingredients:['Paneer','Spinach','Turmeric','Salt','Ghee'], steps:[
+    'Blanch spinach and make puree.',
+    'Cook spinach puree with turmeric and salt.',
+    'Add paneer cubes and simmer 5 minutes.'
+  ]},
+  {name:'Paneer Capsicum Curry', ingredients:['Paneer','Capsicum','Tomato','Turmeric','Ghee','Salt'], steps:[
+    'Sauté capsicum in ghee, add turmeric.',
+    'Add tomato and cook till soft.',
+    'Add paneer and simmer for 5 minutes.'
+  ]},
+  {name:'Paneer Coconut Curry', ingredients:['Paneer','Coconut Milk','Turmeric','Salt','Ghee'], steps:[
+    'Heat ghee, add turmeric.',
+    'Add coconut milk, bring to boil.',
+    'Add paneer cubes and cook 5 minutes.'
+  ]},
+  {name:'Paneer Makhana Curry', ingredients:['Paneer','Makhana','Milk','Ghee','Salt'], steps:[
+    'Roast makhana lightly in ghee.',
+    'Add milk, bring to simmer.',
+    'Add paneer cubes and cook 5 minutes.'
+  ]},
+  {name:'Paneer Beetroot Curry', ingredients:['Paneer','Beetroot','Turmeric','Salt','Ghee'], steps:[
+    'Boil and cube beetroot.',
+    'Cook beetroot in ghee with turmeric.',
+    'Add paneer and simmer 5 minutes.'
+  ]},
+  {name:'Paneer Carrot Sabzi', ingredients:['Paneer','Carrot','Turmeric','Salt','Ghee'], steps:[
+    'Grate carrot and cook in ghee with turmeric.',
+    'Add paneer cubes, mix and cook 3-4 minutes.'
+  ]},
+  {name:'Paneer Zucchini Curry', ingredients:['Paneer','Zucchini','Turmeric','Salt','Ghee'], steps:[
+    'Sauté zucchini in ghee with turmeric.',
+    'Add paneer cubes and simmer 5 minutes.'
+  ]},
+  {name:'Paneer Corn Curry', ingredients:['Paneer','Corn','Turmeric','Salt','Ghee'], steps:[
+    'Cook corn in ghee with turmeric.',
+    'Add paneer cubes and simmer 5 minutes.'
+  ]},
+  {name:'Paneer Mint Curry', ingredients:['Paneer','Mint','Turmeric','Salt','Ghee'], steps:[
+    'Blend mint leaves to a paste.',
+    'Cook mint paste in ghee with turmeric.',
+    'Add paneer cubes and simmer 5 minutes.'
+  ]},
+
+
+  // soyabean based
+  {name:'Soyabean Bhurji (No Onion Garlic)', ingredients:['Soyabean','Tomato','Capsicum','Turmeric','Salt','Ghee'], steps:[
+    'Cook boiled soyabean in ghee with turmeric.',
+    'Add tomato and capsicum, sauté 5-6 minutes.'
+  ]},
+  {name:'Soyabean Spinach Curry', ingredients:['Soyabean','Spinach','Turmeric','Salt','Ghee'], steps:[
+    'Blanch spinach and make puree.',
+    'Cook soyabean with spinach puree and turmeric 5 minutes.'
+  ]},
+  {name:'Soyabean Coconut Curry', ingredients:['Soyabean','Coconut Milk','Salt','Ghee','Turmeric'], steps:[
+    'Heat ghee, add turmeric.',
+    'Add coconut milk and soyabean, simmer 5-6 minutes.'
+  ]},
+  {name:'Soyabean Carrot Curry', ingredients:['Soyabean','Carrot','Turmeric','Salt','Ghee'], steps:[
+    'Sauté carrot in ghee with turmeric.',
+    'Add soyabean and cook 5 minutes.'
+  ]},
+  {name:'Soyabean Peas Curry', ingredients:['Soyabean','Peas','Ghee','Salt','Turmeric'], steps:[
+    'Cook soyabean and peas in ghee with turmeric 5-6 minutes.'
+  ]},
+  {name:'Soyabean Pumpkin Curry', ingredients:['Soyabean','Pumpkin','Ghee','Salt','Turmeric'], steps:[
+    'Cook pumpkin cubes in ghee with turmeric.',
+    'Add soyabean and simmer 5 minutes.'
+  ]},
+  {name:'Soyabean Ridge Gourd Curry', ingredients:['Soyabean','Ridge Gourd','Ghee','Salt','Turmeric'], steps:[
+    'Cook ridge gourd in ghee with turmeric 4-5 minutes.',
+    'Add soyabean and cook 5 minutes.'
+  ]},
+  {name:'Soyabean Bottle Gourd Curry', ingredients:['Soyabean','Bottle Gourd','Ghee','Salt','Turmeric'], steps:[
+    'Cook bottle gourd in ghee with turmeric.',
+    'Add soyabean and simmer 5 minutes.'
+  ]},
+  {name:'Soyabean Zucchini Curry', ingredients:['Soyabean','Zucchini','Ghee','Salt','Turmeric'], steps:[
+    'Sauté zucchini in ghee with turmeric.',
+    'Add soyabean and cook 5 minutes.'
+  ]},
+  {name:'Soyabean Corn Curry', ingredients:['Soyabean','Corn','Ghee','Salt','Turmeric'], steps:[
+    'Cook corn in ghee with turmeric 3-4 minutes.',
+    'Add soyabean and simmer 5 minutes.'
+  ]},
+
+
+
+
+
+
+
+
+
+  // Breakfast / light
+  {name:'Sabudana Khichdi', ingredients:['Sabudana','Peas','Potato'], steps:[
+    'Soak sabudana for 4-5 hours and drain.',
+    'Heat ghee/oil. Add cumin (optional) and chopped potato — cook till half-done.',
+    'Add peas and drained sabudana, salt and cook while stirring until pearls are translucent.',
+    'Finish with lime and roasted peanuts (optional).'
+  ]},
+  {name:'Moong Dal Chilla', ingredients:['Moong Dal'], steps:[
+    'Soak moong dal for 2 hours and grind to a batter with salt.',
+    'Heat a tawa, pour batter thinly, drizzle ghee and cook both sides.',
+    'Serve hot with coconut chutney or plain yogurt.'
+  ]},
+  {name:'Upma with Vegetables', ingredients:['Ragi','Carrot','Beans','Peas','Ghee'], steps:[
+    'Roast semolina/rava or ragi flour carefully.',
+    'Sauté vegetables in ghee, add water and bring to boil.',
+    'Add roasted semolina slowly while stirring till cooked; finish with ghee.'
+  ]},
+
+  // Hot / lunch-dinner (Sattvik versions)
+  {name:'Aviyal (Kerala Avial)', ingredients:['Carrot','Green Beans','Cucumber','Potato','Tindora','Pumpkin','Drumstick','Coconut','Curry Leaves','Green Chili','Ghee','Salt'], steps:[
+    'Cut vegetables into long strips and lightly boil until just tender.',
+    'Grind coconut, green chilies and cumin into a coarse paste; mix with yogurt (or plant-based yogurt).',
+    'Mix paste into the cooked vegetables, simmer briefly; finish with poppy seed paste or temper with coconut oil, curry leaves and red chili.',
+    'Serve with rice.'
+  ]},
+  {name:'Peerkangai Kootu (Ridge Gourd & Moong Dal)', ingredients:['Ridge Gourd','Moong Dal','Turmeric','Asafoetida','Coconut','Mustard Seeds'], steps:[
+    'Cook moong dal until soft (mash gently).',
+    'Sauté cumin, mustard seeds and urad dal, add ridge gourd and turmeric, cook until soft.',
+    'Make a coconut paste with green chilies; add to cooked veggies and dal, simmer for 3–4 minutes.'
+  ]},
+  {name:'Sabji Kathal (Jackfruit Curry)', ingredients:['Young Green Jackfruit','Tomato','Plant-Based Yogurt','Ginger','Curry Leaves','Garam Masala','Salt','Oil'], steps:[
+    'Clean and chop young jackfruit; parboil until slightly tender.',
+    'Sauté ginger, add tomatoes and spices; add jackfruit and cook until flavours blend.',
+    'Add yogurt to mellow the gravy, simmer until jackfruit is cooked through. Garnish with coriander.'
+  ]},
+  {name:'Saag Aloo (Greens & Potatoes)', ingredients:['Potatoes','Spinach','Ginger','Turmeric','Salt','Coriander'], steps:[
+    'Boil or pan-fry potatoes till tender.',
+    'Cook spinach with turmeric and ginger, blend slightly if desired.',
+    'Combine potatoes with cooked greens, simmer 3-4 minutes; finish with coriander.'
+  ]},
+  {name:'Aloo Jeera (Simple Potato)', ingredients:['Potato','Cumin','Turmeric','Salt','Oil'], steps:[
+    'Boil potatoes and cube them.',
+    'Heat oil, add cumin seeds, then add potatoes, turmeric and salt; sauté till lightly crisp.'
+  ]},
+  {name:'Lauki-Tomato Sabzi', ingredients:['Bottle Gourd','Tomato','Turmeric','Cumin','Salt'], steps:[
+    'Sauté cumin and add chopped lauki and tomato.',
+    'Add turmeric and salt; cook until soft and slightly mushy.'
+  ]},
+  {name:'Vegetable Pulao (mild)', ingredients:['Rice','Carrot','Peas','Beans','Ghee','Salt'], steps:[
+    'Sauté vegetables in ghee, add washed rice and water, cook till rice is done.',
+    'Keep it mildly spiced and finish with ghee.'
+  ]},
+  {name:'Mixed Vegetable Curry', ingredients:['Potato','Carrot','Beans','Peas','Tomato','Turmeric'], steps:[
+    'Sauté mixed vegetables with tomato and light spices; simmer till tender.'
+  ]},
+  {name:'Jeera Rice', ingredients:['Rice','Cumin','Ghee','Salt'], steps:[
+    'Heat ghee, add cumin; add rice and water and cook normally.'
+  ]},
+  {name:'Spinach Moong Dal', ingredients:['Spinach','Moong Dal','Turmeric','Salt','Ghee'], steps:[
+    'Cook moong dal with turmeric till soft.',
+    'Add sautéed spinach; combine and simmer for a few minutes.'
+  ]},
+  {name:'Gobi Tamatar Sabzi', ingredients:['Cauliflower','Tomato','Turmeric','Salt'], steps:[
+    'Sauté cauliflower, add tomato and turmeric; cook until soft.'
+  ]},
+
+  // soups & light
+  {name:'Tomato Soup (no onion)', ingredients:['Tomato','Ghee','Salt','Cumin'], steps:[
+    'Boil tomatoes, blend to a smooth puree; season and simmer; finish with ghee.'
+  ]},
+  {name:'Bottle Gourd Soup', ingredients:['Bottle Gourd','Coconut','Salt','Ginger'], steps:[
+    'Boil bottle gourd, blend with coconut, season and serve hot.'
+  ]},
+
+  // desserts & vrat
+  {name:'Lauki Halwa', ingredients:['Bottle Gourd','Milk','Ghee','Sugar'], steps:[
+    'Grate lauki, cook with milk and ghee till soft; sweeten and serve.'
+  ]},
+  {name:'Makhana Kheer', ingredients:['Makhana','Milk','Ghee','Sugar'], steps:[
+    'Roast makhana lightly, simmer in milk with sugar and ghee until thickened.'
+  ]},
+  {name:'Samak Rice Khichdi', ingredients:['Sama Rice','Moong Dal','Ghee','Salt'], steps:[
+    'Cook sama rice and moong dal together with ghee and mild seasoning.'
+  ]}
+  
+  
+];
+
+// Build UI: populate ingredients list and nutrition selector
+const ingredientsWrap = document.getElementById('ingredientsWrap');
+const nutriSelect = document.getElementById('nutriSelect');
+const substituteWrap = document.getElementById('substituteWrap');
+
+ALL_INGREDIENTS.forEach(ing=>{
+  const div = document.createElement('label');
+  div.className = 'ing';
+  div.innerHTML = `<input type="checkbox" value="${ing}" /> ${ing}`;
+  ingredientsWrap.appendChild(div);
+
+  // nutrition dropdown
+  const opt = document.createElement('option');
+  opt.value = ing;
+  opt.textContent = ing;
+  nutriSelect.appendChild(opt);
+});
+
+// show nutrition facts
+function showNutrition(){
+  const v = nutriSelect.value;
+  const table = document.getElementById('nutriTable');
+  if(!v){ table.style.display='none'; table.innerHTML=''; return; }
+  const info = NUTRITION[v];
+  table.style.display='table';
+  if(info){
+    table.innerHTML = `<tr><th>Nutrient</th><th>Per 100g</th></tr>
+      <tr><td>Calories</td><td>${info.cal} kcal</td></tr>
+      <tr><td>Carbs</td><td>${info.carb}</td></tr>
+      <tr><td>Protein</td><td>${info.protein}</td></tr>
+      <tr><td>Fiber</td><td>${info.fiber || '—'}</td></tr>`;
+  } else {
+    table.innerHTML = '<tr><td colspan="2">Nutrition not available</td></tr>';
+  }
+
+  // substitutes
+  substituteWrap.innerHTML = `<div class="substitute"><b>Substitutes for ${v}:</b><br>`
+    + (SUBSTITUTES[v] ? SUBSTITUTES[v].join(', ') : 'No direct substitutes in list.') + '</div>';
+}
+
+/* ---------------------------
+  State & Helpers
+   --------------------------- */
+function selectedIngredients(){
+  return Array.from(document.querySelectorAll('#ingredientsWrap input[type=checkbox]:checked'))
+    .map(i=>i.value);
+}
+
+function clearSelected(){
+  document.querySelectorAll('#ingredientsWrap input[type=checkbox]').forEach(i=>i.checked=false);
+  document.getElementById('dishGrid').innerHTML = '';
+  document.getElementById('selectedRecipe').innerHTML = '<div class="small">No dish selected.</div>';
+}
+
+/* ---------------------------
+  Dish suggestion logic
+   --------------------------- */
+const dishGrid = document.getElementById('dishGrid');
+const recipeDiv = document.getElementById('selectedRecipe');
+
+function suggestDishes(){
+  const have = selectedIngredients();
+  if(have.length===0){
+    alert('Select at least one ingredient to suggest dishes.');
+    return;
+  }
+  const possible = DISHES.filter(d => d.ingredients.every(req => have.includes(req)));
+  dishGrid.innerHTML = '';
+  if(possible.length===0){
+    dishGrid.innerHTML = '<div class="small">No perfect matches found. Try selecting more staples (rice,ghee,moong dal) or fewer vegetables.</div>';
+    return;
+  }
+  possible.forEach(d=>{
+    const el = document.createElement('div');
+    el.className='dish';
+    el.innerHTML = `<h3>${d.name}</h3>
+      <p class="small">Main: ${d.ingredients.slice(0,5).join(', ')}${d.ingredients.length>5?'...':''}</p>
+      <div style="margin-top:8px;display:flex;gap:8px">
+        <button onclick='viewRecipe("${escapeJson(d.name)}")'>View</button>
+        <button class="secondary" onclick='addDishToCart("${escapeJson(d.name)}")'>Add ingredients to cart</button>
+      </div>`;
+    dishGrid.appendChild(el);
+  });
+}
+
+/* helper to find dish by name (stored as unique) */
+function findDishByName(name){
+  return DISHES.find(d => d.name === name);
+}
+
+/* show recipe with steps and extras */
+function viewRecipe(name){
+  name = unescapeJson(name);
+  const d = findDishByName(name);
+  if(!d) return;
+  recipeDiv.innerHTML = `
+    <h3 style="margin-top:0">${d.name}</h3>
+    <div class="small"><b>Ingredients:</b> ${d.ingredients.join(', ')}</div>
+    <div class="recipe">
+      <b>Steps:</b>
+      <ol>${d.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+    </div>
+    <div style="margin-top:8px;display:flex;gap:8px">
+      <button onclick='addDishToCart("${escapeJson(d.name)}")'>Add ingredients to cart</button>
+      <button class="ghost" onclick='copyRecipe("${escapeJson(d.name)}")'>Copy Recipe</button>
+    </div>
+  `;
+
+  // show substitutes for main ingredients
+  substituteWrap.innerHTML = '';
+  d.ingredients.slice(0,8).forEach(ing=>{
+    const s = SUBSTITUTES[ing] || [];
+    const box = document.createElement('div');
+    box.style.marginTop='8px';
+    box.innerHTML = `<b>${ing} substitutes:</b> ${s.length? s.join(', '): '—'}`;
+    substituteWrap.appendChild(box);
+  });
+}
+
+function copyRecipe(name){
+  name = unescapeJson(name);
+  const d = findDishByName(name);
+  if(!d) return;
+  const text = `${d.name}\nIngredients:\n${d.ingredients.join(', ')}\n\nSteps:\n${d.steps.join('\n')}`;
+  navigator.clipboard?.writeText(text).then(()=> alert('Recipe copied to clipboard'));
+}
+
+/* utility to escape quotes in onclick strings */
+function escapeJson(s){ return s.replace(/"/g,'\\"'); }
+function unescapeJson(s){ return s.replace(/\\"/g,'"'); }
+
+/* ---------------------------
+  Grocery cart (localStorage persistence)
+   --------------------------- */
+
+let CART = JSON.parse(localStorage.getItem('sattvik_cart')||'{}');
+
+function saveCart(){
+  localStorage.setItem('sattvik_cart', JSON.stringify(CART));
+  renderCart();
+}
+
+function renderCart(){
+  const out = document.getElementById('cartList');
+  out.innerHTML = '';
+  const keys = Object.keys(CART);
+  if(keys.length===0){ out.innerHTML = '<div class="small">Cart empty</div>'; return; }
+  keys.forEach(k=>{
+    const item = CART[k];
+    const el = document.createElement('div');
+    el.className='cart-item';
+    el.innerHTML = `<div>
+        <div style="font-weight:700">${k}</div>
+        <div class="small">Notes: ${item.note||'—'}</div>
+      </div>
+      <div class="qty">
+        <button onclick='changeQty("${k}",-1)'>-</button>
+        <div class="badge">${item.qty}</div>
+        <button onclick='changeQty("${k}",1)'>+</button>
+      </div>`;
+    out.appendChild(el);
+  });
+}
+
+function changeQty(name,delta){
+  if(!CART[name]) return;
+  CART[name].qty = Math.max(0, CART[name].qty + delta);
+  if(CART[name].qty === 0) delete CART[name];
+  saveCart();
+}
+
+function clearCart(){
+  if(!confirm('Clear grocery cart?')) return;
+  CART = {};
+  saveCart();
+}
+
+/* Add dish ingredients to grocery cart */
+function addDishToCart(name){
+  name = unescapeJson(name);
+  const d = findDishByName(name);
+  if(!d) return;
+  d.ingredients.forEach(i=>{
+    if(CART[i]) CART[i].qty += 1;
+    else CART[i] = {qty:1,note:''};
+  });
+  saveCart();
+  alert('Ingredients added to cart (quantities incremented).');
+}
+
+/* auto-generate grocery list from currently displayed suggested dishes */
+function autoGenerateGrocery(){
+  const have = selectedIngredients();
+  const possible = DISHES.filter(d => d.ingredients.every(req => have.includes(req)));
+  if(possible.length===0){ alert('No suggested dishes to generate from.'); return; }
+  possible.forEach(d=>{
+    d.ingredients.forEach(i=>{
+      if(CART[i]) CART[i].qty += 1;
+      else CART[i] = {qty:1,note:''};
+    });
+  });
+  saveCart();
+  alert('Auto-generated grocery list from suggested dishes.');
+}
+
+/* download grocery as simple text file */
+function downloadGrocery(){
+  const lines = Object.keys(CART).map(k => `${k} x ${CART[k].qty}`);
+  if(lines.length===0){ alert('Cart is empty'); return; }
+  const blob = new Blob([lines.join('\n')], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'grocery-list.txt';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/* ---------------------------
+  Diet Plan Generator (simple)
+   --------------------------- */
+function generateDietPlan(){
+  const have = selectedIngredients();
+  // choose dishes that can be made
+  const possible = DISHES.filter(d => d.ingredients.every(req => have.includes(req)));
+  if(possible.length===0){
+    alert('No suitable dishes available to generate a plan. Select more ingredients or add staples like rice/ghee/moong dal.');
+    return;
+  }
+  // build 7-day plan: each day Breakfast, Lunch, Snack, Dinner
+  const planWrap = document.getElementById('dietPlan');
+  planWrap.innerHTML = '';
+  // for variety, rotate through possible dishes
+  const sample = possible.slice(0, Math.max(1, possible.length));
+  for(let day=1; day<=7; day++){
+    const b = sample[(day-1) % sample.length];
+    const l = sample[(day) % sample.length];
+    const s = sample[(day+1) % sample.length] || b;
+    const d = sample[(day+2) % sample.length] || l;
+
+    const div = document.createElement('div');
+    div.className='plan-day';
+    div.innerHTML = `<b>Day ${day}</b>
+      <div style="margin-top:6px">
+        <div><b>Morning:</b> Warm lemon water & fruits</div>
+        <div><b>Breakfast:</b> ${b.name}</div>
+        <div><b>Lunch:</b> ${l.name} with rice/khichdi</div>
+        <div><b>Evening Snack:</b> Fruit / buttermilk</div>
+        <div><b>Dinner:</b> ${d.name} (light)</div>
+      </div>`;
+    planWrap.appendChild(div);
+  }
+}
+
+/* ---------------------------
+  Save/load selected ingredient checkboxes
+   --------------------------- */
+function saveSelectedToLocal(){
+  const arr = selectedIngredients();
+  localStorage.setItem('sattvik_selected', JSON.stringify(arr));
+  alert('Selection saved locally.');
+}
+function loadSelectionFromLocal(){
+  const arr = JSON.parse(localStorage.getItem('sattvik_selected') || '[]');
+  document.querySelectorAll('#ingredientsWrap input[type=checkbox]').forEach(i=>{
+    i.checked = arr.includes(i.value);
+  });
+  alert('Selection loaded.');
+}
+
+/* ---------------------------
+  Export data
+   --------------------------- */
+function exportAllData(){
+  const data = {
+    selected: selectedIngredients(),
+    cart: CART,
+    dishes: DISHES
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'sattvik-data.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/* ---------------------------
+  Local storage load on start
+   --------------------------- */
+(function init(){
+  // load cart
+  CART = JSON.parse(localStorage.getItem('sattvik_cart')||'{}');
+  renderCart();
+  // load selection if present
+  const saved = JSON.parse(localStorage.getItem('sattvik_selected')||'[]');
+  if(saved.length>0){
+    document.querySelectorAll('#ingredientsWrap input[type=checkbox]').forEach(cb => {
+      if(saved.includes(cb.value)) cb.checked = true;
+    });
+  }
+})();
+
+/* ---------------------------
+  Helpers for UI: copy to clipboard, basic binding when clicking dish names
+   --------------------------- */
+// we've used inline onclicks for buttons so no further binding needed
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+</script>
+
+
+</body>
+</html>

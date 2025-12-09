@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍫 Cartoon Fun Quiz 🍫</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+body {
+  font-family: 'Comic Neue', cursive;
+  background: #fffae6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+.quiz-container {
+  background: #fff0f5;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+h2 { color: #d2691e; font-size: 28px; }
+.question { margin: 15px 0; font-size: 20px; }
+.options button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 12px;
+  background: #ffcc80;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+.options button:hover { background: #ffa726; }
+#score { font-size: 18px; margin-top: 10px; }
+input[type=number] { padding: 6px; width: 60px; border-radius: 8px; border: 2px solid #d2691e; font-weight: bold; }
+button#startBtn { padding: 8px 14px; border: none; border-radius: 10px; background: #d2691e; color: white; cursor: pointer; margin-left: 8px; }
+.progress-bar { height: 10px; background: #ffd699; border-radius: 5px; margin-top: 15px; width: 100%; }
+.progress { height: 100%; width: 0%; background: #d2691e; border-radius: 5px; }
+#basket { position: relative; margin-top: 15px; width: 120px; height: 100px; margin-left: auto; margin-right: auto; background: url('BASKET.PNG') no-repeat center/contain; }
+.chocolate-img { width: 50px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); }s
+</style>
+</head>
+<body>
+<div id="basket" style="position: relative; margin-top: 15px; width: 120px; height: 100px; margin-left: auto; margin-right: auto; background: url('/mnt/data/816165be-6df8-4896-9fd5-1638eed11151.png') no-repeat center/contain;">
+</div>
+
+
+
+<div class="quiz-container">
+  <h2>🍫 KAUN BANEGA CHOCOLATE-PATI
+  <div id="setup">
+    <label>How many questions? </label>
+    <input type
+    
+    
+    ="number" id="numQs" min="1" max="7" value="5">
+    <button id="startBtn" onclick="startQuiz()">Start!</button>
+  </div>
+
+<img src="elephant.png" 
+
+
+
+class="cartoon-animal bottom-right">
+
+
+
+
+
+
+
+
+  <div id="quiz" style="display:none;">
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div id="score">Score: 0</div>
+    <div id="basket"></div>
+    <div style="margin-top:10px;">
+      <button onclick="prevQuestion()" id="prevBtn">Previous</button>
+      <button onclick="nextQuestion()" id="nextBtn">Next</button>
+    </div>
+  </div>
+</div>
+          
+
+
+
+
+
+
+
+
+
+
+<script>
+const allQuestions = [
+
+{q:"What is the most important thing to do to wash germs off your hands?", a:["Rinse with cold water","Wipe them on a towel","Rub them with soap and water for 20 seconds","Dry them in the air"], ans:2}, {q:"Why do we need to eat a balanced diet?", a:["To have a full tummy","To have money for food","To give our body energy and help it grow strong","To make our friends happy"], ans:2}, {q:"How do most cold and flu germs spread?", a:["By reading a book","By touching your face after touching a dirty surface","By standing outside in the sun","By wearing a warm coat"], ans:1}, {q:"How many times a day should you brush your teeth?", a:["Once","At least twice (morning and night)","Only when they hurt","Once a week"], ans:1}, {q:"What should you do when you cough or sneeze?", a:["Cover your mouth with your hands","Don't cover it at all","Cover your mouth and nose with your elbow or a tissue","Look away from everyone"], ans:2}, {q:"Which of these is a symptom of a common cold?", a:["An itchy rash","Fever, cough, and a runny nose","Feeling very hungry","A very quick heartbeat"], ans:1}, {q:"What is the job of a vaccine?", a:["To make you sleepy","To help your body fight off a disease before you get sick","To help you run faster","To stop you from eating candy"], ans:1}, {q:"How much sleep should a child (around age 6-12) get each night?", a:["4-5 hours","6-7 hours","9-12 hours","1-2 hours"], ans:2}, {q:"Which one is an example of a non-communicable disease?", a:["Common Cold","Malaria","Diabetes","Chickenpox"], ans:2}, {q:"What is the main benefit of playing outside and exercising?", a:["Makes you sweaty","Helps your muscles and heart stay strong","Stops you from reading","Makes you tired all day"], ans:1}, {q:"If a food is spoiled, what should you do?", a:["Eat it quickly","Throw it away","Give it to a pet","Leave it for tomorrow"], ans:1}, {q:"Which of these drinks is the healthiest choice for your body?", a:["Soda/Fizzy Drink","Juice Box","Milk or Water","Energy Drink"], ans:2}, {q:"Why should you wash fruits and vegetables before eating them?", a:["To make them colorful","To remove dirt and germs","To make them taste sweeter","To make them bigger"], ans:1}, {q:"If you feel very sick with a high fever, who should you tell first?", a:["A friend","Your pet","A trusted adult","Nobody"], ans:2}, {q:"What is Personal Hygiene?", a:["Keeping your room tidy","Keeping your body clean and healthy","Being nice to other people","Reading books about health"], ans:1}, {q:"What are your private parts?", a:["The parts you use to run","The parts that are covered by your swimsuit or underwear","Your hands and feet","Your hair and ears"], ans:1}, {q:"Who is generally allowed to touch your private parts?", a:["A doctor or nurse for a check-up (with parent)","A friendly stranger","An older kid","Only people you don't know"], ans:0}, {q:"What is a Good Touch?", a:["A touch that makes you feel happy, safe, and cared for","A touch that makes you feel scared, confused, or hurt","A surprise touch","A silly touch"], ans:0}, {q:"What should you do if someone gives you an Unsafe Touch or asks you to keep a Bad Secret?", a:["Keep the secret","Say 'NO' loudly and leave the place quickly","Smile and be polite","Wait until the next day to tell"], ans:1}, {q:"Who is a 'Trusted Adult'?", a:["Someone you see every day","Anyone who gives you candy","Someone you trust to listen to you and keep you safe","A character in a movie"], ans:2}, {q:"If a stranger offers you candy or a ride, what should you do?", a:["Take the gift and go with them","Shout 'NO! This is not my mom/dad!' and run to a trusted adult","Politely say thank you and take the candy","Ask your friend what to do"], ans:1}, {q:"Why should you never keep a secret about a touch or situation that makes you feel bad?", a:["Because it will make you forget your homework","Because it keeps you and other children in danger","Because secrets are boring","Because your friends will find out"], ans:1}, {q:"If you are lost in a store, who should you look for to ask for help?", a:["The person standing closest to you","A store employee","Someone who looks sad","Another lost child"], ans:1}, {q:"What is the Buddy System for playing outside?", a:["Only playing with toys that have batteries","Staying with a friend or sibling so you are not alone","Running as fast as you can","Making a new friend every day"], ans:1}, {q:"What is the safest way to cross the road?", a:["Run across as fast as you can","Look only left","Look left, right, and left again for cars","Close your eyes and hope for the best"], ans:2}, {q:"Before taking any medicine, who must tell you it is okay?", a:["Your older brother or sister","A TV advertisement","Your trusted adult (parent/guardian)","Your friend"], ans:2}, {q:"What does it mean to have Body Autonomy?", a:["Your body can fly","You get to choose who touches your body and when","You must let everyone hug you","You can eat anything you want"], ans:1}, {q:"If your private information (name, address, school) is asked for online, what should you do?", a:["Type it quickly","Share it only with a trusted adult first","Make up a fake name","Ignore the question"], ans:1}, {q:"Which touch is an example of an Unwanted Touch (even if safe)?", a:["A surprise tickle from a cousin when you asked them to stop","A gentle high-five from your coach","A pat on the back for doing well","A handshake from a family friend"], ans:0}, {q:"If you see fire or smell smoke in your house, what should you do immediately?", a:["Hide under the bed","Run to your designated outside meeting spot and call for help","Go back to sleep","Try to put the fire out yourself"], ans:1}, {q:"What does it mean to be Courageous?", a:["Not being scared of anything","Doing something even when you are scared","Being rude to people","Hiding when things get hard"], ans:1}, {q:"If you make a mistake, what is the best thing to do?", a:["Cry and give up immediately","Hide the mistake and hope no one notices","Learn from it and try a different way next time","Blame a friend"], ans:2}, {q:"What is a Positive Affirmation?", a:["Saying something bad about yourself","Saying something like 'I can do this!' or 'I am kind'","Asking for a reward","Complaining about homework"], ans:1}, {q:"What is the best way to develop a new skill (like drawing or cycling)?", a:["Be good at it the first time","Never practice","Practice regularly and be patient","Only practice when everyone is watching"], ans:2}, {q:"If a task seems too big (like cleaning your whole room), what is a good hack?", a:["Don't do it at all","Break it into smaller, simpler steps","Wait for someone else to do it","Do a different chore instead"], ans:1}, {q:"Which action is an example of Resilience?", a:["Stopping after the first try","Trying again after you fail or fall down","Telling everyone it was too hard","Asking someone to do it for you"], ans:1}, {q:"Why is it important to listen when others are speaking?", a:["So you can interrupt them faster","To show respect and fully understand their ideas","To decide what you will say next","To try to prove them wrong"], ans:1}, {q:"How do you show Gratitude (being thankful)?", a:["By complaining less","By saying 'Thank you' and being helpful","By taking everything you are given","By ignoring people who help you"], ans:1}, {q:"What is the first step in solving a simple problem?", a:["Panic","Hide the problem","Identify and understand the problem clearly","Guess the answer"], ans:2}, {q:"What is a good way to manage your time and not forget important things?", a:["Write a To-Do list or set a reminder","Only do things at the last minute","Ask someone else to remember for you","Keep everything in your head"], ans:0}, {q:"What is a basic First Aid step for a small cut?", a:["Ignore it","Put a clean bandage on it after washing it gently with soap and water","Blow on it","Cover it with dirt"], ans:1}, {q:"What does it mean to be a good Team Player?", a:["Do all the work by yourself","Only tell others what to do","Share tasks, listen to others, and help when needed","Criticize other people's work"], ans:2}, {q:"Which action is a way to build self-confidence?", a:["Only doing things you know you are perfect at","Trying new things and being proud of your effort","Comparing yourself to others all the time","Only playing games that are very easy"], ans:1}, {q:"What is the best way to handle your emotions when you are very angry or sad?", a:["Punch something","Take a few deep breaths and talk to a trusted adult","Shout at everyone around you","Keep it a secret and pretend to be fine"], ans:1}, {q:"What is a simple hack for remembering where you put a toy or book?", a:["Keep everything in one big pile","Put it back in its designated place after you use it","Ask your parent to look for it","Wait until the next day to look"], ans:1}, {q:"What is the most important thing to do when following instructions?", a:["Skip the first step","Read or listen to all the steps before starting","Only look at the pictures","Ask for help right away"], ans:1}, {q:"What should you do if you see someone being bullied?", a:["Join in","Walk away quietly","Tell a trusted adult or help safely","Ignore it"], ans:2}, {q:"Which of these is a healthy snack?", a:["Candy bar","Carrot sticks","Soda","Chips"], ans:1}, {q:"Why is it important to drink water?", a:["To feel sleepy","To stay hydrated and keep your body working well","To taste something sweet","To play more"], ans:1}, {q:"Which organ stores excess glucose?", a:["Liver","Kidney","Heart","Pancreas"], ans:0}, {q:"Which vitamin helps in wound healing?", a:["Vitamin A","Vitamin C","Vitamin D","Vitamin K"], ans:1}, {q:"Which organ produces red blood cells?", a:["Kidney","Bone marrow","Liver","Spleen"], ans:1}, {q:"Which mineral is important for nerve function?", a:["Sodium","Iron","Calcium","Zinc"], ans:2}, {q:"Which organ helps in detoxification?", a:["Kidney","Liver","Heart","Lungs"], ans:1}, {q:"Which nutrient is essential for growth?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which vitamin prevents night blindness?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:0}, {q:"Which organ produces urine?", a:["Kidney","Bladder","Liver","Heart"], ans:0}, {q:"Which organ regulates hormones?", a:["Heart","Endocrine glands","Liver","Kidney"], ans:1}, {q:"Which blood vessel carries oxygenated blood?", a:["Arteries","Veins","Capillaries","None"], ans:0}, {q:"Which nutrient is used for repair of tissues?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ helps in immunity?", a:["Spleen","Kidney","Liver","Heart"], ans:0}, {q:"Which vitamin is important for bones?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:3}, {q:"Which organ controls metabolism?", a:["Heart","Liver","Thyroid","Kidney"], ans:2}, {q:"Which blood cells remove waste?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:3}, {q:"Which organ stores iron?", a:["Liver","Spleen","Kidney","Heart"], ans:0}, {q:"Which mineral prevents anemia?", a:["Calcium","Iron","Potassium","Zinc"], ans:1}, {q:"Which organ produces bile acids?", a:["Liver","Pancreas","Gallbladder","Kidney"], ans:0}, {q:"Which nutrient is stored as glycogen?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:1}, {q:"Which organ is part of the excretory system?", a:["Heart","Kidney","Liver","Stomach"], ans:1}, {q:"Which vitamin helps in calcium absorption?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:3}, {q:"Which organ stores vitamins?", a:["Liver","Kidney","Heart","Spleen"], ans:0}, {q:"Which organ helps in thermoregulation?", a:["Brain","Heart","Lungs","Kidney"], ans:0}, {q:"Which nutrient is essential for energy?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:1}, {q:"Which blood cells produce antibodies?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:1}, {q:"Which organ removes toxins from blood?", a:["Liver","Kidney","Heart","Lungs"], ans:0}, {q:"Which mineral helps in muscle contraction?", a:["Calcium","Iron","Potassium","Sodium"], ans:0},{q:"Which vitamin prevents rickets?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:3}, {q:"Which organ produces digestive enzymes?", a:["Liver","Pancreas","Kidney","Heart"], ans:1}, {q:"Which blood vessel connects arteries and veins?", a:["Capillaries","Veins","Arteries","Venules"], ans:0}, {q:"Which nutrient is the main energy source?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:1}, {q:"Which organ helps in immune response?", a:["Spleen","Kidney","Heart","Liver"], ans:0}, {q:"Which mineral strengthens teeth?", a:["Calcium","Iron","Potassium","Zinc"], ans:0}, {q:"Which organ controls water balance?", a:["Heart","Kidney","Liver","Lungs"], ans:1}, {q:"Which vitamin is necessary for blood clotting?", a:["Vitamin A","Vitamin K","Vitamin C","Vitamin D"], ans:1}, {q:"Which organ stores bile?", a:["Liver","Gallbladder","Pancreas","Kidney"], ans:1}, {q:"Which blood cells carry oxygen?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:0}, {q:"Which nutrient is used for tissue repair?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ filters blood?", a:["Kidney","Liver","Heart","Spleen"], ans:0}, {q:"Which organ produces insulin?", a:["Liver","Pancreas","Heart","Kidney"], ans:1}, {q:"Which vitamin is fat-soluble?", a:["Vitamin C","Vitamin D","Vitamin B","Vitamin B12"], ans:1}, {q:"Which organ helps in detoxification?", a:["Kidney","Liver","Heart","Lungs"], ans:1}, {q:"Which nutrient stores energy?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:2}, {q:"Which blood group is universal donor?", a:["A","B","AB","O"], ans:3}, {q:"Which organ produces red blood cells?", a:["Bone marrow","Kidney","Liver","Spleen"], ans:0}, {q:"Which vitamin prevents scurvy?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:2}, {q:"Which organ removes carbon dioxide?", a:["Heart","Lungs","Kidney","Liver"], ans:1}, {q:"Which mineral helps in oxygen transport?", a:["Calcium","Iron","Potassium","Zinc"], ans:1}, {q:"Which organ stores iron?", a:["Liver","Spleen","Kidney","Heart"], ans:0}, {q:"Which organ regulates hormones?", a:["Heart","Endocrine glands","Liver","Kidney"], ans:1}, {q:"Which nutrient is essential for growth?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ is part of the excretory system?", a:["Heart","Kidney","Liver","Stomach"], ans:1}, {q:"Which vitamin helps in calcium absorption?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:3}, {q:"Which organ stores excess glucose?", a:["Liver","Kidney","Heart","Pancreas"], ans:0}, {q:"Which blood vessel carries oxygenated blood?", a:["Arteries","Veins","Capillaries","None"], ans:0}, {q:"Which organ produces bile acids?", a:["Liver","Pancreas","Gallbladder","Kidney"], ans:0}, {q:"Which nutrient is stored as glycogen?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:1}, {q:"Which organ removes toxins from blood?", a:["Liver","Kidney","Heart","Lungs"], ans:0}, {q:"Which mineral helps in muscle contraction?", a:["Calcium","Iron","Potassium","Sodium"], ans:0}, {q:"Which blood cells produce antibodies?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:1}, {q:"Which organ helps in thermoregulation?", a:["Brain","Heart","Lungs","Kidney"], ans:0}, {q:"Which organ produces hormones?", a:["Heart","Endocrine glands","Kidney","Liver"], ans:1}, {q:"Which nutrient regulates body processes?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:3}, {q:"Which organ is responsible for breathing?", a:["Heart","Lungs","Kidney","Liver"], ans:1}, {q:"Which vitamin is necessary for vision?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:0}, {q:"Which organ stores vitamins?", a:["Liver","Kidney","Heart","Spleen"], ans:0}, {q:"Which organ produces digestive enzymes?", a:["Liver","Pancreas","Kidney","Heart"], ans:1}, {q:"Which nutrient protects organs?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:2}, {q:"Which organ helps in immunity?", a:["Spleen","Kidney","Liver","Heart"], ans:0}, {q:"Which organ helps in digestion?", a:["Heart","Liver","Stomach","Brain"], ans:2}, {q:"Which blood cells help in clotting?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:2}, {q:"Which organ pumps blood?", a:["Heart","Lungs","Kidneys","Liver"], ans:0}, {q:"Which vitamin is water-soluble?", a:["Vitamin A","Vitamin D","Vitamin C","Vitamin K"], ans:2}, {q:"Which organ produces bile?", a:["Liver","Pancreas","Heart","Kidney"], ans:0}, {q:"Which organ stores urine?", a:["Kidney","Bladder","Heart","Liver"], ans:1}, {q:"Which nutrient builds muscles?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ controls body temperature?", a:["Brain","Liver","Kidney","Heart"], ans:0}, {q:"Which blood cells fight germs?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:1}, {q:"Which vitamin is fat-soluble?", a:["Vitamin C","Vitamin D","Vitamin B","Vitamin B12"], ans:1}, {q:"Which organ produces urine?", a:["Kidney","Bladder","Liver","Heart"], ans:0}, {q:"Which organ regulates hormones?", a:["Heart","Endocrine glands","Liver","Kidney"], ans:1}, {q:"Which nutrient is used for repair of tissues?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ helps in detoxification?", a:["Kidney","Liver","Heart","Lungs"], ans:1}, {q:"Which nutrient stores energy?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:2}, {q:"Which blood group is universal recipient?", a:["A","B","AB","O"], ans:2}, {q:"Which organ produces adrenaline?", a:["Kidney","Adrenal gland","Liver","Heart"], ans:1}, {q:"Which vitamin helps in wound healing?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:2}, {q:"Which organ stores glycogen?", a:["Liver","Kidney","Heart","Spleen"], ans:0}, {q:"Which nutrient is the main source of energy?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:1}, {q:"Which organ is part of lymphatic system?", a:["Spleen","Kidney","Heart","Liver"], ans:0}, {q:"Which mineral is important for bone strength?", a:["Calcium","Iron","Potassium","Zinc"], ans:0}, {q:"Which organ secretes digestive enzymes?", a:["Pancreas","Liver","Kidney","Heart"], ans:0}, {q:"Which blood cells help fight infections?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:1}, {q:"Which organ helps in respiration?", a:["Lungs","Kidney","Heart","Liver"], ans:0}, {q:"Which vitamin is important for teeth and bones?", a:["Vitamin A","Vitamin D","Vitamin C","Vitamin K"], ans:1}, {q:"Which organ filters waste from blood?", a:["Kidney","Liver","Heart","Lungs"], ans:0}, {q:"Which nutrient is needed for growth?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ produces insulin?", a:["Pancreas","Liver","Kidney","Heart"], ans:0}, {q:"Which blood group is called universal donor?", a:["A","B","AB","O"], ans:3}, {q:"Which nutrient is stored as fat?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:2}, {q:"Which organ produces bile?", a:["Liver","Pancreas","Kidney","Heart"], ans:0}, {q:"Which mineral helps in oxygen transport?", a:["Calcium","Iron","Potassium","Zinc"], ans:1}, {q:"Which organ stores iron?", a:["Liver","Spleen","Kidney","Heart"], ans:0}, {q:"Which vitamin is needed for vision?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:0}, {q:"Which organ stores urine?", a:["Kidney","Bladder","Liver","Heart"], ans:1}, {q:"Which blood cells help in clotting?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:2}, {q:"Which organ pumps blood?", a:["Heart","Lungs","Kidney","Liver"], ans:0}, {q:"Which vitamin is water-soluble?", a:["Vitamin A","Vitamin D","Vitamin C","Vitamin K"], ans:2}, {q:"Which organ removes carbon dioxide?", a:["Heart","Lungs","Kidney","Liver"], ans:1}, {q:"Which organ stores bile?", a:["Liver","Gallbladder","Pancreas","Kidney"], ans:1}, {q:"Which organ regulates water balance?", a:["Heart","Kidney","Liver","Lungs"], ans:1}, {q:"Which nutrient is required for tissue repair?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ regulates hormones?", a:["Heart","Endocrine glands","Liver","Kidney"], ans:1}, {q:"Which blood group is universal recipient?", a:["A","B","AB","O"], ans:2}, {q:"Which nutrient stores energy?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:2}, {q:"Which organ helps in detoxification?", a:["Kidney","Liver","Heart","Lungs"], ans:1}, {q:"Which blood cells carry oxygen?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:0}, {q:"Which organ helps in immunity?", a:["Spleen","Kidney","Liver","Heart"], ans:0}, {q:"Which vitamin prevents scurvy?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:2}, {q:"Which organ controls body temperature?", a:["Brain","Liver","Kidney","Heart"], ans:0}, {q:"Which organ produces red blood cells?", a:["Bone marrow","Kidney","Liver","Spleen"], ans:0}, {q:"Which vitamin is necessary for blood clotting?", a:["Vitamin A","Vitamin K","Vitamin C","Vitamin D"], ans:1}, {q:"Which organ helps in digestion?", a:["Heart","Liver","Stomach","Brain"], ans:2}, {q:"Which organ produces digestive enzymes?", a:["Liver","Pancreas","Kidney","Heart"], ans:1}, {q:"Which nutrient protects organs?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:2}, {q:"Which organ stores excess glucose?", a:["Liver","Kidney","Heart","Pancreas"], ans:0}, {q:"Which organ regulates hormones?", a:["Heart","Endocrine glands","Liver","Kidney"], ans:1}, {q:"Which nutrient regulates body processes?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:3}, {q:"Which organ is part of the excretory system?", a:["Heart","Kidney","Liver","Stomach"], ans:1}, {q:"Which organ helps in thermoregulation?", a:["Brain","Heart","Lungs","Kidney"], ans:0}, {q:"Which organ stores vitamins?", a:["Liver","Kidney","Heart","Spleen"], ans:0}, {q:"Which organ produces hormones?", a:["Heart","Endocrine glands","Kidney","Liver"], ans:1}, {q:"Which organ produces urine?", a:["Kidney","Bladder","Liver","Heart"], ans:0}, {q:"Which blood vessel carries oxygenated blood?", a:["Arteries","Veins","Capillaries","None"], ans:0}, {q:"Which nutrient is used for repair of tissues?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which blood cells produce antibodies?", a:["Red blood cells","White blood cells","Platelets","Plasma"], ans:1}, {q:"Which mineral helps in muscle contraction?", a:["Calcium","Iron","Potassium","Sodium"], ans:0}, {q:"Which organ removes toxins from blood?", a:["Liver","Kidney","Heart","Lungs"], ans:0}, {q:"Which nutrient is essential for growth?", a:["Protein","Carbohydrate","Fat","Vitamin"], ans:0}, {q:"Which organ stores iron?", a:["Liver","Spleen","Kidney","Heart"], ans:0}, {q:"Which vitamin helps in calcium absorption?", a:["Vitamin A","Vitamin B","Vitamin C","Vitamin D"], ans:3}, {q:"Which organ produces hormones?", a:["Heart","Endocrine glands","Kidney","Liver"], ans:1}, {q:"If you are afraid to speak in front of the class, what is a good tip?", a:["Pretend you are invisible","Take deep breaths and practice first","Shout loudly","Hide under your desk"], ans:1}, {q:"Which one is a way to prevent germs from spreading?", a:["Sharing drinks","Washing hands regularly","Touching your face","Not bathing"], ans:1}, {q:"Why is it important to wear a helmet while riding a bike?", a:["To look cool","To protect your head from injury","To match your outfit","It is optional"], ans:1}, {q:"What is the main purpose of exercise?", a:["To feel tired","To improve your health and strength","To stay inside","To eat more snacks"], ans:1}, {q:"Which one is a sign of good mental health?", a:["Being angry all the time","Being able to manage emotions and enjoy life","Ignoring friends","Feeling bored"], ans:1}, {q:"How can you reduce screen time effectively?", a:["Watch more videos","Set a schedule and take breaks","Do nothing","Keep the device on your bed"], ans:1}, {q:"What should you do if you accidentally hurt someone?", a:["Ignore it","Apologize and help fix it","Blame someone else","Run away"], ans:1}, {q:"Why is it important to get enough sleep?", a:["To be grumpy","To help your body rest and grow","To skip breakfast","To stay awake all night"], ans:1}, {q:"What is the best way to avoid dehydration on a hot day?", a:["Drink water frequently","Drink only soda","Avoid drinking anything","Stay in the sun all day"], ans:0}, {q:"Which of these is an example of a positive habit?", a:["Brushing teeth twice a day","Skipping meals","Not washing hands","Hitting friends"], ans:0}, {q:"What should you do if you feel unwell at school?", a:["Ignore it","Tell a teacher or nurse immediately","Keep playing","Hide from everyone"], ans:1}, {q:"Why should you avoid junk food too often?", a:["It makes you happy","It can harm your body and teeth","It tastes bad","It is expensive"], ans:1}, {q:"What is the safest way to handle a sharp object?", a:["Play with it","Use it carefully with supervision","Throw it around","Hide it"], ans:1}, {q:"Which one is an example of empathy?", a:["Ignoring someone's feelings","Helping someone who is sad","Laughing at mistakes","Only thinking about yourself"], ans:1}, {q:"What is the best way to protect yourself online?", a:["Share passwords with friends","Keep personal info private and ask a trusted adult","Talk to strangers","Post everything online"], ans:1}, {q:"Why is it important to stretch before exercise?", a:["To show off","To prevent injuries and improve flexibility","To be late","To tire out muscles"], ans:1}, {q:"Which one is an unsafe behavior on the street?", a:["Looking both ways before crossing","Running into traffic","Using a crosswalk","Following traffic signals"], ans:1}, {q:"What should you do if you feel stressed or overwhelmed?", a:["Take deep breaths, rest, or talk to someone","Do nothing","Shout at everyone","Avoid all work"], ans:0}, {q:"Which one is a healthy way to express anger?", a:["Punch someone","Take deep breaths and talk about it calmly","Shout at friends","Break things"], ans:1}, {q:"Why should you not talk to strangers without a trusted adult?", a:["Because you might get lost or tricked","Because everyone is mean","Because adults say so","Because it is boring"], ans:0}, {q:"What is the main benefit of keeping a diary or journal?", a:["To write secrets","To express feelings and track experiences","To make friends","To copy homework"], ans:1}, {q:"Which of these is a sign of dehydration?", a:["Feeling very thirsty","Having lots of energy","Feeling sleepy","Being happy"], ans:0}, {q:"What is the right way to respond to peer pressure?", a:["Do what everyone else does","Say 'No' firmly and make your own choice","Ignore it completely","Run away"], ans:1}, {q:"Which one is an example of a safe place to play?", a:["Busy street","Park with fences and supervision","Construction site","Alone near water"], ans:1}, {q:"Why is it important to eat fruits and vegetables?", a:["They are colorful","They provide vitamins and help your body stay healthy","They are heavy","They are expensive"], ans:1}, {q:"How can you avoid accidents at home?", a:["Run everywhere","Keep floors dry and tidy, and use items safely","Ignore safety rules","Play near sharp objects"], ans:1}, {q:"Which one is a good way to handle disappointment?", a:["Yell at others","Take a break, reflect, and try again","Ignore it completely","Give up immediately"], ans:1}, {q:"What is a safe way to cross a street with a crosswalk signal?", a:["Cross when the signal is green and look both ways","Run across immediately","Close your eyes","Ask a stranger to cross with you"], ans:0}, {q:"Which one is an example of a healthy relationship?", a:["Friends who respect and support each other","Friends who push or hurt you","Friends who make fun of you","Friends who ignore you"], ans:0}, {q:"Why should you wear sunscreen on sunny days?", a:["To look shiny","To protect skin from harmful UV rays","To get tanned","To play longer"], ans:1}, {q:"Which one is a benefit of reading regularly?", a:["Helps your brain grow and imagination","Makes you bored","Makes you sleepy","Wastes time"], ans:0}, {q:"What should you do if someone asks you to keep a secret that feels wrong?", a:["Keep it quietly","Tell a trusted adult","Share it with friends","Ignore it and forget"], ans:1}, {q:"Which of these is an example of teamwork?", a:["Helping each other to finish a project","Doing everything yourself","Ignoring others","Arguing about tasks"], ans:0}, {q:"What is the best way to keep your teeth healthy?", a:["Brushing twice a day and visiting the dentist","Only brushing once a week","Chewing candy","Ignoring tooth pain"], ans:0}, {q:"Why should you avoid drinking too many sugary drinks?", a:["They are colorful","They can harm teeth and body","They are cheap","They make you sleepy"], ans:1}, {q:"What is a good way to practice mindfulness?", a:["Focus on breathing and being aware of your feelings","Multitask constantly","Ignore your thoughts","Think about past mistakes"], ans:0}, {q:"Which one is a sign of a healthy body?", a:["Feeling energetic and strong","Always tired","Getting sick often","Feeling weak"], ans:0}, {q:"What should you do if you are lost in a public place?", a:["Panic","Look for a trusted adult or security","Hide somewhere","Shout randomly"], ans:1}, {q:"Why is it important to wash hands before eating?", a:["To make food taste better","To remove germs and prevent illness","To be polite","To copy others"], ans:1}, {q:"Which one is a sign of good emotional health?", a:["Being able to cope with stress and enjoy life","Being angry all the time","Ignoring problems","Being sad every day"], ans:0}, {q:"What is the safest way to handle hot objects in the kitchen?", a:["Touch them quickly","Use oven mitts or ask for help","Blow on them","Ignore them"], ans:1}, {q:"Why should you never share personal information online with strangers?", a:["It is boring","It can put you in danger","It is fun","It is mandatory"], ans:1}, {q:"What is an example of self-care?", a:["Brushing teeth, eating well, exercising","Ignoring your body","Playing video games all day","Skipping sleep"], ans:0}, {q:"Which of these is a safe way to use scissors?", a:["Run with scissors","Cut on a flat surface while paying attention","Leave them on the floor","Throw them"], ans:1}, {q:"Why should you not touch electrical outlets?", a:["Because they are dirty","Because you could get shocked","Because they are expensive","Because they are boring"], ans:1}, {q:"Which one is a good habit before sleeping?", a:["Brushing teeth and washing face","Eating candy in bed","Watching TV until sleep","Running around"], ans:0}, {q:"What is the correct way to treat a minor burn?", a:["Pour ice directly","Cool it under running water and cover with clean cloth","Rub dirt","Ignore it"], ans:1}, {q:"Why is it important to be honest?", a:["People will trust you and relationships stay strong","It is boring","It is easier","No one cares"], ans:0}, {q:"Which one shows good sportsmanship?", a:["Cheering for everyone and respecting rules","Arguing with referees","Cheating","Being rude to opponents"], ans:0}, {q:"What is a good way to avoid getting sick?", a:["Wash hands, eat healthy, and get vaccines","Ignore hygiene","Share drinks","Touch everything"], ans:0}, {q:"Which one is a sign of good time management?", a:["Completing tasks on schedule and taking breaks","Procrastinating","Ignoring deadlines","Doing nothing"], ans:0}
+];
+
+let questions = [];
+let currentQ = 0;
+let score = 0;
+let answered = [];
+let chocolates = []; // current chocolates
+
+function startQuiz() {
+  let num = parseInt(document.getElementById("numQs").value);
+  if(num > allQuestions.length) num = allQuestions.length;
+  questions = allQuestions.sort(()=>0.5-Math.random()).slice(0,num);
+  answered = new Array(num).fill(false);
+  currentQ = 0;
+  score = 0;
+  loadChocolatesFromStorage();
+
+  document.getElementById("setup").style.display = "none";
+  document.getElementById("quiz").style.display = "block";
+
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = questions[currentQ];
+  document.getElementById("question").textContent = q.q;
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+  q.a.forEach((option,index)=>{
+    const btn = document.createElement("button");
+    btn.textContent = option;
+    btn.onclick = ()=> selectAnswer(index, btn);
+    if(answered[currentQ]) btn.disabled = true;
+    optionsDiv.appendChild(btn);
+  });
+  document.getElementById("prevBtn").disabled = currentQ===0;
+  document.getElementById("nextBtn").disabled = currentQ===questions.length-1;
+  updateProgress();
+}
+
+function selectAnswer(index, btn){
+  if(answered[currentQ]) return;
+  const q = questions[currentQ];
+  if(index === q.ans){
+    score += 4;
+    addChocolate(true); // correct
+  } else {
+    score -= 1;
+    addChocolate(false); // wrong
+  }
+  answered[currentQ] = true;
+  document.getElementById("score").textContent = `Score: ${score}`;
+  disableOptions();
+}
+
+function disableOptions(){
+  const btns = document.querySelectorAll(".options button");
+  btns.forEach(b=>b.disabled=true);
+}
+
+function nextQuestion(){ if(currentQ < questions.length-1) {currentQ++; loadQuestion();} }
+function prevQuestion(){ if(currentQ > 0) {currentQ--; loadQuestion();} }
+function updateProgress(){ const percent = ((currentQ+1)/questions.length)*100; document.getElementById("progress").style.width = percent + "%"; }
+
+// Chocolate animation
+function addChocolate(correct){
+  const basket = document.getElementById("basket");
+  let img = document.createElement("img");
+  img.src = "1234.PNG";
+  img.className = "chocolate-img";
+  document.body.appendChild(img);
+
+  const basketRect = basket.getBoundingClientRect();
+  const startX = window.innerWidth/2 - 20; // center top
+  const startY = basketRect.top - 300;
+  img.style.left = startX + "px";
+  img.style.top = startY + "px";
+
+  if(correct){
+    // fly to basket
+    img.animate([
+      {transform:`translate(${startX}px,${startY}px)`},
+      {transform:`translate(${basketRect.left + basketRect.width/2 - 20}px, ${basketRect.top}px)`}
+    ], {duration:800, easing:"ease-in", fill:"forwards"});
+    setTimeout(()=>{
+      basket.appendChild(img);
+      img.style.position = "relative";
+      img.style.top = "0px";
+      img.style.left = "0px";
+      img.style.width = "40px";
+    },800);
+    chocolates.push("chocolate");
+  } else {
+    // wrong answer, remove one chocolate
+    if(chocolates.length > 0){
+      const removed = chocolates.pop();
+      const lastChoco = basket.querySelector("img:last-child");
+      if(lastChoco) basket.removeChild(lastChoco);
+    }
+    img.remove(); // remove animation image
+  }
+
+  // save in local storage
+  localStorage.setItem("chocolates", JSON.stringify(chocolates));
+}
+
+function loadChocolatesFromStorage(){
+  const basket = document.getElementById("basket");
+  basket.innerHTML = "";
+  chocolates = JSON.parse(localStorage.getItem("chocolates")) || [];
+  chocolates.forEach(c=>{
+    const img = document.createElement("img");
+    img.src = "1234.PNG";
+    img.className = "chocolate-img";
+    img.style.position = "relative";
+    basket.appendChild(img);
+  });
+}
+</script>
+</body>
+</html>

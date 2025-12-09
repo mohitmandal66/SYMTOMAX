@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Website</title>
+  <!-- Your CSS/JS links -->
+</head>
+<body>
+  <!-- Your nav bar, content, sections etc. -->
+
+  <!-- SymptoCoin Panel (paste it here near the end) -->
+  <div id="symptoPanel" style="display:none;position:fixed;top:50%;left:50%;
+       transform:translate(-50%,-50%);background:#fff;color:#333;padding:25px;
+       border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,0.25);z-index:2000;
+       width:320px;max-width:90%;text-align:center;">
+       
+    <h2>💰 SymptoCoin & Daily Streak</h2>
+    <p>This feature rewards you for spending time on our website. You earn coins and maintain a daily streak!</p>
+    
+    <p><strong>Earned Coins:</strong> <span id="panelCoins">0</span></p>
+    <p><strong>Current Streak:</strong> <span id="panelStreak">0</span> days</p>
+    
+    <p>How it works:</p>
+    <ul style="text-align:left;">
+      <li>💸 100 Coins = 1 hour total spent on our site</li>
+      <li>🔥 Daily streak increases if you visit the site on consecutive days</li>
+      <li>⚠️ Skipping a day resets your streak</li>
+    </ul>
+    
+    <button id="closeSymptoPanel" style="margin-top:15px;padding:8px 12px;
+            border:none;border-radius:6px;background:#2b7a2f;color:rgb(255, 225, 0);cursor:pointer;">
+      Close
+    </button>
+  </div>
+
+  <!-- Your other scripts -->
+  <script src="symptocoin.js"></script> <!-- or inline JS -->
+</body>
+</html>
